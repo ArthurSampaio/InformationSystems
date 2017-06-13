@@ -97,11 +97,6 @@ var Script = function () {
 
     $('.tooltips').tooltip();
 
-//    popovers
-
-    $('.popovers').popover();
-
-
 
 // custom bar chart
 

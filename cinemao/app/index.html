@@ -20,6 +20,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="css/style-responsive.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
 
 
 </head>
@@ -28,8 +30,6 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-
-
 
 
   <section id="container">
@@ -44,11 +44,15 @@
       <!--logo start-->
       <a href="index.html" class="logo"><b>CINEMÃO DO SAMPAIO</a>
       <!--logo end-->
-      
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="login.html">Logout</a></li>
-        </ul>
+
+      <div class="top-menu" >
+        <form class="form-inline pull-right" role="form">
+
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="tag" id="buscaInputField" placeholder="Buscar">
+          </div>
+          <button type="submit" ng-click="buscar(tag)" class="btn btn-theme">Go!</button>
+        </form>
       </div>
     </header>
     <!--header end-->
@@ -62,8 +66,8 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
-          <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-          <h5 class="centered">Marcel Newman</h5>
+          <p class="centered"><a href="profile.html"><img src="./img/user.png" class="img-circle" width="160"></a></p>
+          <h5 class="centered">Usuário Bacana</h5>
 
           <li class="mt">
             <a href="index.html">
@@ -138,21 +142,21 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper site-min-height">
-        <h3><i class="fa fa-angle-right"></i> Blank Page</h3>
         <div class="row mt">
           <div class="col-lg-12">
-              <div ng-view></div>
-  
+            <div ng-view></div>
+
           </div>
         </div>
 
       </section>
-      <! --/wrapper -->
+      <!--/wrapper -->
     </section>
     <!-- /MAIN CONTENT -->
-          
+
     <!--main content end-->
     <!--footer start-->
+
     <footer class="site-footer">
       <div class="text-center">
         2014 - Alvarez.is
@@ -166,14 +170,13 @@
 
 
 
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
+  
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
+  
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
@@ -185,17 +188,15 @@
   <script src="js/jquery.scrollTo.min.js"></script>
   <script src="js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
   <script src="js/jquery.ui.touch-punch.min.js"></script>
-      <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+  <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+
+  <script src="js/controller/BuscaController.js"></script>
 
   <script src="js/common-scripts.js"></script>
+  <script src="app.js"></script>
 
-  <script>
-    //custom select box
 
-    $(function () {
-      $('select.styled').customSelect();
-    });
-  </script>
+
 
 
 </body>
