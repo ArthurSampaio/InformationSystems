@@ -991,7 +991,7 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-	height: 250px;
+	height: 350px;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -1323,11 +1323,10 @@ PANELS CONFIGURATIONS
 
 /* Soptify Panel */
 #spotify {
-	background: url(../img/lorde.jpg) no-repeat center top;
 	margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;
-	min-height: 220px;
+	min-height: 300px;
 	width: 100%;
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
@@ -1350,7 +1349,7 @@ PANELS CONFIGURATIONS
 	position: absolute;
 	color: #efefef;
 }
-#spotify .sp-title h3 {
+#spotify .sp-title h4 {
 	font-weight: 900;
 }
 #spotify .play{
