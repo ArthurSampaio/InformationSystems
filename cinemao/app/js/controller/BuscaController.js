@@ -15,7 +15,7 @@ angular.module('myApp.busca', ['ngRoute'])
 }])
 
 
-.controller('BuscaController', ['$scope', 'tag', function($scope, tag) {
+.controller('BuscaController', ['$scope', 'tag','QueryService', function($scope, tag, QueryService) {
 
     const self = this; 
     console.log(tag);
@@ -26,6 +26,17 @@ angular.module('myApp.busca', ['ngRoute'])
      "http://legacy.semantic-ui.com/images/demo/photo.jpg",
      "https://img.clasf.co.ve/2016/03/27/regalo-cachorros-siberian-husky-cachorros-jose-antonio-paez-201603271602546431020000.jpg"];
 
+     console.log(QueryService.searchByTitle(tag));
+     QueryService.searchByTitle(tag).then(
+
+        function(response){
+            console.log(response.data.Response);
+        },
+        function(error){
+            console.log(error);
+        }
+
+     )
 
 }]);
 
