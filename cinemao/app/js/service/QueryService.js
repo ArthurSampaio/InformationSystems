@@ -4,7 +4,7 @@ angular.module('myApp').factory('QueryService', function($q, $http, config){
 
     function _searchByTitle(title){
 
-        return $http.get(config.baseUrl + SEARCH + title)
+        return $http.get(config.baseUrl + SEARCH + title);
 
     }
 
