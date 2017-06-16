@@ -19,6 +19,12 @@ body {
     font-size:13px;
 }
 
+.notfound {
+    max-width: 800px;
+    max-height: 500px;
+    align-content: center;
+}
+
 ul li {
     list-style: none;
 }
@@ -1347,7 +1353,7 @@ PANELS CONFIGURATIONS
 	bottom: 15%;
 	left: 25px;
 	position: absolute;
-	color: #efefef;
+	color: #fcb322;
 }
 #spotify .sp-title h4 {
 	font-weight: 900;

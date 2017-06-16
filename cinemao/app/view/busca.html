@@ -1,31 +1,49 @@
-{{tag}}
+<div ng-if="isValidTitle">
+    <div class="row">
 
+        <div ng-repeat="movies in moviesFinded">
 
-<div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div class="content-panel pn">
+                    <div id="spotify" ng-style="{'background' : 'url({{movies.Poster}}) no-repeat center top'}">
+                        <div class="col-xs-4 col-xs-offset-8">
+                            <button class="btn btn-sm btn-clear-g">FOLLOW</button>
 
-    <div ng-repeat="urls in urlData">
-
-        <div class="col-lg-4 col-md-4 col-sm-4 mb">
-            <div class="content-panel pn">
-                <div id="spotify" ng-style="{'background' : 'url({{urls}}) no-repeat center top'}">
-                    <div class="col-xs-4 col-xs-offset-8">
-                        <button class="btn btn-sm btn-clear-g">FOLLOW</button>
-
+                        </div>
+                        <div class="sp-title">
+                            <h4>{{movies.Title}}</h4>
+                        </div>
+                        <div class="play">
+                            <i class="fa fa-play-circle"></i>
+                        </div>
                     </div>
-                    <div class="sp-title">
-                        <h4>PIRATES OF SILICON VALLEY</h4>
-                    </div>
-                    <div class="play">
-                        <i class="fa fa-play-circle"></i>
-                    </div>
+                    <p class="followers"><i class="fa fa-user"></i> 576,000 FOLLOWERS</p>
                 </div>
-                <p class="followers"><i class="fa fa-user"></i> 576,000 FOLLOWERS</p>
             </div>
         </div>
 
+       
 
     </div>
+     <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                <li class="next"><a ng-click="next()">Próxima<span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+</div>
+<div ng-if="isValidTitle == false">
 
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel thumbnail">
+                <h3>{{tag}} não foi encontrado.</h3>
+                <img class="notfound " src="/img/notfound.png">
 
+            </div>
+            <!-- /form-panel -->
+        </div>
+        <!-- /col-lg-12 -->
+    </div>
 
 </div>

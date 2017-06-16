@@ -19,6 +19,8 @@ angular.module('myApp', [
 }])
 
 .run(['$rootScope', '$location', function($rootScope, $location) {
+ 
+  const INITIAL_PAGE = 1;
   $rootScope.$on('$stateChangeError',
         function (event, toState, toParams, fromState, fromParams, error) {
             console.log(event, error);
@@ -26,7 +28,7 @@ angular.module('myApp', [
 
   $rootScope.buscar = function(tag){
 
-    $location.path('/busca/'+tag);
+    $location.path('/busca/'+tag + '/' +INITIAL_PAGE);
     $rootScope.tag = null;
    
 
