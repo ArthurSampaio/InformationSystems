@@ -1,4 +1,4 @@
-angular.module('myApp').factory('QueryService', function($q, $http, config){
+angular.module('myApp').service('QueryService', function($q, $http, config){
 
     const SEARCH = "s=";
     const PAGE = "&page="

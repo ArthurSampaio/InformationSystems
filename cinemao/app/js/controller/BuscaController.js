@@ -44,18 +44,15 @@ angular.module('myApp.busca', ['ngRoute'])
                 }
             }
 
-            loadData();
-            console.log(Number(page) + 1);
-            console.log(title);
-
-
-
             $scope.next = function () {
 
                 const nextPage = Number(page) + NEXT;
                 $location.path('/busca/' + title + '/' + nextPage);
 
             }
+
+
+            loadData();
 
 
         }]);
