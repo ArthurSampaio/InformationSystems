@@ -48,6 +48,9 @@ angular.module('myApp.busca', ['ngRoute'])
                UserService.addMediaToPerfil(media).then(
                    function(data){
                        console.log(data.response);
+                   }, 
+                   function(error){
+                       console.log(error.response);
                    }
                )
             }

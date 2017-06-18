@@ -31,14 +31,12 @@ class User {
         let out = false;
         const exist = this._perfil.map((item) => {
            return item.imdbID
-        }).indexOf(movie.imdb);
-        
+        });
 
-        if (exist === -1) {
+        if (exist.indexOf(movie.imdbID) === -1) {
             this._perfil.push(movie);
             out = true;
         }
-        console.log(this._perfil);
         return out;
 
     }

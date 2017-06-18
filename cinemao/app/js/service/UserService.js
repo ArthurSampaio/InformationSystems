@@ -8,12 +8,9 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
             if (user_cached !== null) {
                 let auxUser = JSON.parse(user_cached);
                 this.user = new User(auxUser._watchlist, auxUser._perfil);
-                console.log(typeof this.user);
                 
             } else {
                 this.user = new User();
-                console.log(typeof this.user);
-
             }
 
         } else {
@@ -36,10 +33,6 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
                 reject({'response':false});
             }
         });
-
-
-        
-
     }
 
 
