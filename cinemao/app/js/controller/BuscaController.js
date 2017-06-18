@@ -25,8 +25,8 @@ angular.module('myApp.busca', ['ngRoute'])
     }])
 
 
-    .controller('BuscaController', ['$scope', '$location', 'data', 'QueryService', 'title', 'page',
-        function ($scope, $location, data, QueryService, title, page) {
+    .controller('BuscaController', ['$scope', '$location', 'data', 'QueryService', 'title', 'page', 'UserService',
+        function ($scope, $location, data, QueryService, title, page, UserService) {
 
             const NEXT = 1;
 
@@ -34,7 +34,6 @@ angular.module('myApp.busca', ['ngRoute'])
                 if (data.Response === "True") {
                     $scope.isValidTitle = true;
                     $scope.moviesFinded = [].concat(data.Search);
-                    console.log("ENTROU");
 
                 } else {
                     $scope.isValidTitle = false;
@@ -44,16 +43,40 @@ angular.module('myApp.busca', ['ngRoute'])
                 }
             }
 
+            $scope.addToPerfil = function (media){
+
+               UserService.addMediaToPerfil(media).then(
+                   function(data){
+                       console.log(data.response);
+                   }
+               )
+            }
+
+            $scope.addToWatchlist = function (media){
+                console.log(media);
+            }
+
             $scope.next = function () {
 
                 const nextPage = Number(page) + NEXT;
-                $location.path('/busca/' + title + '/' + nextPage);
+
+                if (nextPage <= 100) {
+                    $location.path('/busca/' + title + '/' + nextPage);
+                }
+
+            }
+
+            $scope.previous = function () {
+                
+                const previousPage = Number(page) - NEXT; 
+                if(previousPage > 1){
+                    $location.path('/busca/' + title + '/' + previousPage);
+                }
 
             }
 
 
             loadData();
-
 
         }]);
 

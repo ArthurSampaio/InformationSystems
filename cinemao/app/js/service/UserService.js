@@ -1,29 +1,54 @@
-angular.module('myApp').service('UserService', function($q, $http, config){
+angular.module('myApp').service('UserService', function ($q, $http, config) {
 
     const USER_ACTUAL = "USER";
 
-
-    this.user; 
-
-    (function(){
-        if(typeof(Storage) !== "undefined"){
-            let user_cached = localStorage.getItem(USER_ACTUAL) 
-            if(user_cached !== null){
-                this.user = JSON.parse(user_cached);
-            }else{
+    function load() {
+        if (typeof (Storage) !== "undefined") {
+            let user_cached = _getInternalUser();
+            if (user_cached !== null) {
+                let auxUser = JSON.parse(user_cached);
+                this.user = new User(auxUser._watchlist, auxUser._perfil);
+                console.log(typeof this.user);
+                
+            } else {
                 this.user = new User();
+                console.log(typeof this.user);
+
             }
 
-        }else{
+        } else {
             this.user = new User();
         }
+        return this.user;
+    };
 
-    })();    
+   
+    function _addMediaToPerfil (media){
+        let user = load();
+        console.log(user);
+        const result = user.addPerfil(media);
 
-    function addWatchlist (movie){
-        const result = this.user.addWatchlist(movie);
-        //TODO: retornar promessa
+        return new Promise(function(resolve, reject){
+            if(result){
+                localStorage.setItem('USER', JSON.stringify(user));
+                resolve({'response':true});
+            }else{
+                reject({'response':false});
+            }
+        });
+
+
+        
+
     }
 
+
+    function _getInternalUser(){
+        return localStorage.getItem(USER_ACTUAL);
+    }
+
+    return {
+        addMediaToPerfil : _addMediaToPerfil
+    }
 
 })

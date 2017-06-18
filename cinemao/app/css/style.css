@@ -162,12 +162,12 @@ a, a:hover, a:focus {
 
 .btn-clear-g {
 	color: #48bcb4;
-	background: transparent;
+	background : transparent;
 	border-color: #48bcb4;
 }
 
 .btn-clear-g:hover {
-	color: white;
+	color: #d3d3d3;
 }
 
 hr {
@@ -1350,10 +1350,11 @@ PANELS CONFIGURATIONS
 	margin-top: 5px;
 }
 #spotify .sp-title {
-	bottom: 15%;
+	top: 5%;
 	left: 25px;
 	position: absolute;
 	color: #fcb322;
+    text-align: center justify;
 }
 #spotify .sp-title h4 {
 	font-weight: 900;
@@ -1368,6 +1369,7 @@ PANELS CONFIGURATIONS
 .followers {
 	margin-left: 5px;
 	margin-top: 5px;
+    text-align: center;
 }
 
 /* BLOG PANEL */

@@ -1,39 +1,58 @@
 class User {
 
-    constructor() {
-        this.watchlist = [];
-        this.perfil = [];
+    constructor(watch, perfil) {
+        if(watch === undefined){
+            this._watchlist = []
+        }else{
+            this._watchlist = watch;
+        }
+        
+        if(perfil === undefined){
+             this._perfil = []
+        }else{
+            this._perfil = perfil;
+        }
+
+       
     }
 
     addWatchlist(movie) {
         let out = false;
-        if (_checkIfMediaExist(movie, this.watchlist) === -1) {
-            this.watchlist.push(movie);
+
+        if (checkIfMediaExist(movie, this._watchlist) === -1) {
+            this._watchlist.push(movie);
             out = true;
         }
         return out;
     }
 
     addPerfil(movie) {
+
         let out = false;
-        if (_checkIfMediaExist(movie, this.perfil) === -1) {
-            this.perfil.push(movie);
+        const exist = this._perfil.map((item) => {
+           return item.imdbID
+        }).indexOf(movie.imdb);
+        
+
+        if (exist === -1) {
+            this._perfil.push(movie);
             out = true;
         }
+        console.log(this._perfil);
         return out;
 
     }
 
     removeWatchlist(movie) {
-        this.watchlist = this.watchlist.filter((media) => {
+        this._watchlist = this._watchlist.filter((media) => {
             return media.title !== movie.title;
         })
     }
 
     removePerfil(movie) {
         let out = false;
-        if (_checkIfMediaExist(movie, this.perfil) !== -1) {
-            this.perfil = this.perfil.filter((media) => {
+        if (checkIfMediaExist(movie, this._perfil) !== -1) {
+            this._perfil = this.perfil.filter((media) => {
                 return media.title !== movie.title;
             })
             out = true;
@@ -43,19 +62,15 @@ class User {
 
 
     get watchlist() {
-        return [].concat(this.watchlist);
+        return [].concat(this._watchlist);
     }
 
     get perfil() {
-        return [].concat(this.perfil);
+        return [].concat(this._perfil);
     }
 
-    /**
-     * Checks if a given media exist in list
-     * @param {*} media 
-     * @param {*} list 
-     */
-    _checkIfMediaExist(media, list) {
+   
+   checkIfMediaExist(media, list) {
 
         return list.map((item) => {
             item.imdbID
