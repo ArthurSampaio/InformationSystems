@@ -47,27 +47,52 @@ angular.module('myApp.busca', ['ngRoute'])
 
                 UserService.addMediaToPerfil(media).then(
                     function (data) {
-                        $scope.test = "AUSHUSAH";
                         console.log(data.response);
+                        if (data.response) {
+                            ngToast.create({
+                                className: 'success',
+                                content: media.Title + ', was added with success in your perfil.', dismissOnTimeout: true,
+                                dismissButton: true,
+                                dismissOnClick: false
+                            });
+                        }else{
+                            ngToast.create({
+                                className: 'danger',
+                                content: media.Title + ', already be part of your perfil.', 
+                                dismissOnTimeout: true,
+                                dismissButton: true,
+                                dismissOnClick: false
+                            });
 
-                        ngToast.create({
-                            className: 'danger',
-                            content: 'IEEEIIII', dismissOnTimeout: false,
-                            dismissButton: true,
-                            dismissOnClick: false
-                        });
-
-                        if (!data.response) {
-                            alert("Você já cadastrou essa bagaça");
                         }
-
                     });
 
 
             }
 
             $scope.addToWatchlist = function (media) {
-                console.log(media);
+                 UserService.addMediaToWatchlist(media).then(
+                    function (data) {
+                        console.log(data.response);
+                        if (data.response) {
+                            ngToast.create({
+                                className: 'success',
+                                content: media.Title + ', was added with success in your watchlist.', 
+                                dismissOnTimeout: true,
+                                dismissButton: true,
+                                dismissOnClick: false
+                            });
+                        }else{
+                            ngToast.create({
+                                className: 'danger',
+                                content: media.Title + ', already be part of your watchlist.', 
+                                dismissOnTimeout: true,
+                                dismissButton: true,
+                                dismissOnClick: false
+                            });
+
+                        }
+                    });
             }
 
             $scope.next = function () {

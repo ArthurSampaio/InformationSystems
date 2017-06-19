@@ -38,6 +38,21 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
         });
     }
 
+    function _addMediaToWatchlist (media){
+         let user = load();
+        
+        const result = user.addWatchlist(media);
+        
+        return $q(function(resolve, reject){
+            if(result){
+               _saveInternalUser(user)
+                resolve({'response':true});
+            }else{
+                resolve({'response':false});
+            }
+        });
+    }
+
 
     function _getInternalUser(){
         return localStorage.getItem(USER_ACTUAL);
@@ -48,7 +63,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
     }
 
     return {
-        addMediaToPerfil : _addMediaToPerfil
+        addMediaToPerfil : _addMediaToPerfil,
+        addMediaToWatchlist : _addMediaToWatchlist
     }
 
 })
