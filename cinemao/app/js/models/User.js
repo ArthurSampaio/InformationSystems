@@ -1,19 +1,20 @@
 class User {
 
     constructor(watch, perfil) {
-        if(watch === undefined){
+        
+        if (watch === undefined) {
             this._watchlist = []
-        }else{
+        } else {
             this._watchlist = watch;
         }
-        
-        if(perfil === undefined){
-             this._perfil = []
-        }else{
+
+        if (perfil === undefined) {
+            this._perfil = []
+        } else {
             this._perfil = perfil;
         }
 
-       
+
     }
 
     addWatchlist(movie) {
@@ -30,7 +31,7 @@ class User {
 
         let out = false;
         const exist = this._perfil.map((item) => {
-           return item.imdbID
+            return item.imdbID
         });
 
         if (exist.indexOf(movie.imdbID) === -1) {
@@ -67,8 +68,8 @@ class User {
         return [].concat(this._perfil);
     }
 
-   
-   checkIfMediaExist(media, list) {
+
+    checkIfMediaExist(media, list) {
 
         return list.map((item) => {
             item.imdbID

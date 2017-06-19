@@ -25,12 +25,12 @@ angular.module('myApp.busca', ['ngRoute'])
     }])
 
 
-    .controller('BuscaController', ['$scope', '$location', 'data', 'QueryService', 'title', 'page', 'UserService',
-        function ($scope, $location, data, QueryService, title, page, UserService) {
+    .controller('BuscaController', ['$scope', '$location', 'data', 'QueryService', 'title', 'page', 'UserService', 'ngToast',
+        function ($scope, $location, data, QueryService, title, page, UserService, ngToast) {
 
             const NEXT = 1;
 
-            function loadData() {
+            (function () {
                 if (data.Response === "True") {
                     $scope.isValidTitle = true;
                     $scope.moviesFinded = [].concat(data.Search);
@@ -41,21 +41,32 @@ angular.module('myApp.busca', ['ngRoute'])
                     $scope.tag = title;
 
                 }
+            })();
+
+            $scope.addToPerfil = function (media) {
+
+                UserService.addMediaToPerfil(media).then(
+                    function (data) {
+                        $scope.test = "AUSHUSAH";
+                        console.log(data.response);
+
+                        ngToast.create({
+                            className: 'danger',
+                            content: 'IEEEIIII', dismissOnTimeout: false,
+                            dismissButton: true,
+                            dismissOnClick: false
+                        });
+
+                        if (!data.response) {
+                            alert("Você já cadastrou essa bagaça");
+                        }
+
+                    });
+
+
             }
 
-            $scope.addToPerfil = function (media){
-
-               UserService.addMediaToPerfil(media).then(
-                   function(data){
-                       console.log(data.response);
-                   }, 
-                   function(error){
-                       console.log(error.response);
-                   }
-               )
-            }
-
-            $scope.addToWatchlist = function (media){
+            $scope.addToWatchlist = function (media) {
                 console.log(media);
             }
 
@@ -70,16 +81,16 @@ angular.module('myApp.busca', ['ngRoute'])
             }
 
             $scope.previous = function () {
-                
-                const previousPage = Number(page) - NEXT; 
-                if(previousPage > 1){
+
+                const previousPage = Number(page) - NEXT;
+                if (previousPage >= 1) {
                     $location.path('/busca/' + title + '/' + previousPage);
                 }
 
             }
 
 
-            loadData();
+
 
         }]);
 

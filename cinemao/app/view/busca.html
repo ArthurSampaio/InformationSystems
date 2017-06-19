@@ -1,22 +1,31 @@
 <section>
+
     <div ng-if="isValidTitle">
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous"><a ng-click="previous()"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+                <li class="next"><a ng-click="next()">Próxima<span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
         <div class="row">
+                <toast class=".col-md-4 .offset-md-4"></toast>
+
             <div ng-repeat="movies in moviesFinded">
                 <div class="col-lg-4 col-md-4 col-sm-4 mb">
                     <div class="content-panel pn">
                         <div id="spotify" ng-style="{'background' : 'url({{movies.Poster}}) no-repeat center top'}">
-                            
+
                         </div>
 
                         <p class="followers"><i class="fa fa-user-o"></i> {{movies.Title}}</p>
                         <div class="btn-group btn-group-justified">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-theme02" ng-click="addToPerfil(movies)" >Add To Perfil</button>
+                                <button type="button" class="btn btn-theme02" ng-click="addToPerfil(movies)">Add To Perfil</button>
                             </div>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-theme03" ng-click="addToWatchlist(movies)">Add to Watchlist</button>
                             </div>
-                            
+
                         </div>
 
                     </div>

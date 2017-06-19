@@ -16,21 +16,24 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
         } else {
             this.user = new User();
         }
+        console.log(this.user);
+        
         return this.user;
     };
 
    
     function _addMediaToPerfil (media){
         let user = load();
-        console.log(user);
+        
         const result = user.addPerfil(media);
+        
 
-        return new Promise(function(resolve, reject){
+        return $q(function(resolve, reject){
             if(result){
-                localStorage.setItem('USER', JSON.stringify(user));
+               _saveInternalUser(user)
                 resolve({'response':true});
             }else{
-                reject({'response':false});
+                resolve({'response':false});
             }
         });
     }
@@ -38,6 +41,10 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
 
     function _getInternalUser(){
         return localStorage.getItem(USER_ACTUAL);
+    }
+
+    function _saveInternalUser(user){
+        return  localStorage.setItem('USER', JSON.stringify(user));
     }
 
     return {
