@@ -43,27 +43,18 @@ angular.module('myApp.busca', ['ngRoute'])
                 }
             })();
 
+
             $scope.addToPerfil = function (media) {
 
                 UserService.addMediaToPerfil(media).then(
                     function (data) {
                         console.log(data.response);
                         if (data.response) {
-                            ngToast.create({
-                                className: 'success',
-                                content: media.Title + ', was added with success in your perfil.', dismissOnTimeout: true,
-                                dismissButton: true,
-                                dismissOnClick: false
-                            });
-                        }else{
-                            ngToast.create({
-                                className: 'danger',
-                                content: media.Title + ', already be part of your perfil.', 
-                                dismissOnTimeout: true,
-                                dismissButton: true,
-                                dismissOnClick: false
-                            });
-
+                            const message = media.Title + ', was added with success in your perfil.';
+                            createToast('success', message);
+                        } else {
+                            const message = media.Title + ', already be part of your perfil.';
+                            createToast('danger', message);
                         }
                     });
 
@@ -71,26 +62,15 @@ angular.module('myApp.busca', ['ngRoute'])
             }
 
             $scope.addToWatchlist = function (media) {
-                 UserService.addMediaToWatchlist(media).then(
+                UserService.addMediaToWatchlist(media).then(
                     function (data) {
                         console.log(data.response);
                         if (data.response) {
-                            ngToast.create({
-                                className: 'success',
-                                content: media.Title + ', was added with success in your watchlist.', 
-                                dismissOnTimeout: true,
-                                dismissButton: true,
-                                dismissOnClick: false
-                            });
-                        }else{
-                            ngToast.create({
-                                className: 'danger',
-                                content: media.Title + ', already be part of your watchlist.', 
-                                dismissOnTimeout: true,
-                                dismissButton: true,
-                                dismissOnClick: false
-                            });
-
+                            const message = media.Title + ', was added with success in your watchlist.';
+                            createToast('success', message);
+                        } else {
+                            // const message = media.Title + ', already be part of your watchlist';
+                            createToast('danger', message);
                         }
                     });
             }
@@ -114,7 +94,15 @@ angular.module('myApp.busca', ['ngRoute'])
 
             }
 
-
+            function createToast(status, message) {
+                return ngToast.create({
+                    className: status,
+                    content: message,
+                    dismissOnTimeout: true,
+                    dismissButton: true,
+                    dismissOnClick: false
+                });
+            }
 
 
         }]);
