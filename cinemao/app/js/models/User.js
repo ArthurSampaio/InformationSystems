@@ -25,7 +25,7 @@ class User {
         });
 
         if (exist.indexOf(movie.imdbID) === -1) {
-            this._watchlist.push(movie);
+            this._watchlist.unshift(movie);
             out = true;
         }
         return out;
@@ -39,7 +39,7 @@ class User {
         });
 
         if (exist.indexOf(movie.imdbID) === -1) {
-            this._perfil.push(movie);
+            this._perfil.unshift(movie);
             out = true;
         }
         return out;

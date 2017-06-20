@@ -69,7 +69,7 @@ angular.module('myApp.busca', ['ngRoute'])
                             const message = media.Title + ', was added with success in your watchlist.';
                             createToast('success', message);
                         } else {
-                            // const message = media.Title + ', already be part of your watchlist';
+                            const message = media.Title + ', already be part of your watchlist';
                             createToast('danger', message);
                         }
                     });
