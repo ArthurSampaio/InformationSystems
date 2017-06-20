@@ -1,4 +1,4 @@
-angular.module('myApp').service('UserService', function ($q, $http, config) {
+angular.module('myApp').service('UserService', function ($q, $http, config, QueryService) {
 
     const USER_ACTUAL = "USER";
 
@@ -30,32 +30,40 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
     }
 
     function _addMediaToPerfil(media) {
-        let user = load();
 
-        const result = user.addPerfil(media);
-        return $q(function (resolve, reject) {
-            if (result) {
-                _saveInternalUser(user)
-                resolve({ 'response': true });
-            } else {
-                resolve({ 'response': false });
-            }
-        });
+       return QueryService.getInfoByImdbID(media.imdbID).then(
+            function (response) {
+                let user = load();
+                console.log(response.data);
+                const result = user.addPerfil(response.data);
+                return $q(function (resolve, reject) {
+                    if (result) {
+                        _saveInternalUser(user)
+                        resolve({ 'response': true });
+                    } else {
+                        resolve({ 'response': false });
+                    }
+                });
+            })
+
     }
 
     function _addMediaToWatchlist(media) {
-        let user = load();
+         return QueryService.getInfoByImdbID(media.imdbID).then(
+            function (response) {
+                let user = load();
+                console.log(response.data);
+                const result = user.addWatchlist(response.data);
+                return $q(function (resolve, reject) {
+                    if (result) {
+                        _saveInternalUser(user)
+                        resolve({ 'response': true });
+                    } else {
+                        resolve({ 'response': false });
+                    }
+                });
+            })
 
-        const result = user.addWatchlist(media);
-
-        return $q(function (resolve, reject) {
-            if (result) {
-                _saveInternalUser(user)
-                resolve({ 'response': true });
-            } else {
-                resolve({ 'response': false });
-            }
-        });
     }
 
 
@@ -70,8 +78,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config) {
     return {
         addMediaToPerfil: _addMediaToPerfil,
         addMediaToWatchlist: _addMediaToWatchlist,
-        getListOfPerfil : _getListOfPerfil, 
-        getListOfWatchlist : _getListOfWatchlist
+        getListOfPerfil: _getListOfPerfil,
+        getListOfWatchlist: _getListOfWatchlist
     }
 
 })

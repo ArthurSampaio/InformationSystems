@@ -48,7 +48,6 @@ angular.module('myApp.busca', ['ngRoute'])
 
                 UserService.addMediaToPerfil(media).then(
                     function (data) {
-                        console.log(data.response);
                         if (data.response) {
                             const message = media.Title + ', was added with success in your perfil.';
                             createToast('success', message);
@@ -64,7 +63,6 @@ angular.module('myApp.busca', ['ngRoute'])
             $scope.addToWatchlist = function (media) {
                 UserService.addMediaToWatchlist(media).then(
                     function (data) {
-                        console.log(data.response);
                         if (data.response) {
                             const message = media.Title + ', was added with success in your watchlist.';
                             createToast('success', message);

@@ -16,12 +16,15 @@ angular.module('myApp.home', ['ngRoute'])
             (function () {
                 UserService.getListOfPerfil().then(
                     function (response) {
-                        console.log(response);
                         $scope.listOfPerfil = response;
                     }
                 )
 
             })();
+
+            $scope.test = function (movie) {
+                console.log(movie);
+            }
 
 
 
