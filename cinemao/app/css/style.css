@@ -50,11 +50,16 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #68dff0;
+	background: #69A2B0;
+}
+
+#myModalRemove .modal-header{
+    background: #ed5565
 }
 
 .modal-title {
 	color: white;
+    text-align: center;
 }
 
 .btn-round {
@@ -102,7 +107,7 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #68dff0;
+  background-color: #4B88A2;
   border-color: #48bcb4;
 }
 .btn-theme:hover,
@@ -111,8 +116,8 @@ a, a:hover, a:focus {
 .btn-theme.active,
 .open .dropdown-toggle.btn-theme {
   color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
+  background-color: #4B88A2;
+  border-color: #4B88A2;
 }
 
 .btn-theme02 {
@@ -132,8 +137,8 @@ a, a:hover, a:focus {
 
 .btn-theme03 {
   color: #fff;
-  background-color: #48cfad;
-  border-color: #37bc9b;
+  background-color: #4B88A2;
+  border-color: #4B88A2;
 }
 .btn-theme03:hover,
 .btn-theme03:focus,
@@ -423,7 +428,7 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #e8a609;
+    background: #ED9B40;
     border-bottom: 1px solid #a3894c;
     
 }
@@ -887,8 +892,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	padding-top: 20px;
 }
 
-.mleft {
-}
+
 
 .border-head h3 {
     margin-top: 20px;
@@ -2229,7 +2233,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+    background: #4B88A2;
     color: #fff;
     padding: 10px 0;
 }
@@ -2253,7 +2257,11 @@ label {
     min-height: 900px;
 }
 
-.thumbnail {margin-bottom:6px;}
+.thumbnail {
+
+    margin-bottom:6px;
+    
+    }
 
 .carousel-control.left,.carousel-control.right{
   background-image:none;

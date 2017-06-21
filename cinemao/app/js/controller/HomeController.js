@@ -22,10 +22,17 @@ angular.module('myApp.home', ['ngRoute'])
 
             })();
 
-            $scope.test = function (movie) {
-                console.log(movie);
+            $scope.getInfoForModal = function (movie) {
+
+                $scope.mediaModal = angular.copy(movie); 
             }
 
+            $scope.removeMediaFromPerfil = function (movie){
+
+                $scope.mediaTobeRemoved = angular.copy(movie);
+
+
+            }
 
 
 
