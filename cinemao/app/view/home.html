@@ -8,12 +8,14 @@
                     <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
                     </button>
                     <p class="followers"><i class="fa fa-user-o"></i> {{ movie.Title }}</p>
+
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                            <button type="button" ng-click="removeMediaFromPerfil(movie)" class="btn btn-theme04" data-toggle='modal' data-target='#myModalRemove'
+                            <button type="button" ng-click="removeMediaFromPerfil(movie)" class="btn btn-theme04" data-toggle='modal' data-target='#ModalRemove'
                                 ng-click="">Remove</button>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -21,8 +23,18 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">{{ mediaModal.Title }}</h4>
+                            <div class='headerInfo'>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                <div class='col-lg-6 col-md-6 col-sm-6'>
+                                    <h3 id="myModalLabel"><strong>{{ mediaModal.Title }}</strong></h3>
+                                    <br>
+                                    <p>{{ mediaModal.Rated }} | {{ mediaModal.Runtime }} | {{ mediaModal.Genre }} | {{ Released
+                                        }} </p>
+                                </div>
+                                <div class='col-lg-6 col-md-6 col-sm-6'>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-body row">
 
@@ -42,7 +54,7 @@
                                 </div>
 
                             </div>
-                            
+
 
                         </div>
 

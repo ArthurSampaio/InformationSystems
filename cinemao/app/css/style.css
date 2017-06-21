@@ -51,17 +51,27 @@ a, a:hover, a:focus {
 /* Bootstrap Modifications */
 .modal-header {
 	background: #69A2B0;
-}
-
-
-.modal-title {
-	color: white;
+    color: white;
     text-align: center;
 }
 
 
+.modal-header h3 {
+    margin: 0px;
+}
+
+.modal-header p {
+    font-size: 10px;
+    margin: 0px;
+   
+}
+
+.head-info {
+    margin: 0px;
+}
+
 /*Modal's mofication*/
-#myModalRemove .modal-header{
+#ModalRemove .modal-header{
     background: #ed5565
 }
 

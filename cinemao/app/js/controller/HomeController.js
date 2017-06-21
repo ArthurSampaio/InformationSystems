@@ -23,7 +23,7 @@ angular.module('myApp.home', ['ngRoute'])
             })();
 
             $scope.getInfoForModal = function (movie) {
-
+                console.log(movie);
                 $scope.mediaModal = angular.copy(movie); 
             }
 
