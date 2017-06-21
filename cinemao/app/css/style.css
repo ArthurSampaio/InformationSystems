@@ -53,14 +53,18 @@ a, a:hover, a:focus {
 	background: #69A2B0;
 }
 
-#myModalRemove .modal-header{
-    background: #ed5565
-}
 
 .modal-title {
 	color: white;
     text-align: center;
 }
+
+
+/*Modal's mofication*/
+#myModalRemove .modal-header{
+    background: #ed5565
+}
+
 
 .btn-round {
 	border-radius: 20px;
@@ -166,9 +170,9 @@ a, a:hover, a:focus {
 }
 
 .btn-clear-g {
-	color: #48bcb4;
+	color: #4B88A2;
 	background : transparent;
-	border-color: #48bcb4;
+	border-color: #4B88A2;
 }
 
 .btn-clear-g:hover {
