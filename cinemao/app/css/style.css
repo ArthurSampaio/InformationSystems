@@ -2260,3 +2260,17 @@ label {
   margin-top:10%;
   width:5%;
 }
+
+/* CSS used here will be applied after bootstrap.css */
+#carousel {
+    margin-top: 20px;
+}
+.item .thumb {
+	width: 25%;
+	cursor: pointer;
+	float: left;
+}
+.item .thumb img, .item img {
+	width: 100%;	
+}
+

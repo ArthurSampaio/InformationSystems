@@ -110,6 +110,8 @@ var Script = function () {
         })
     }
 
+    $('.carousel').carousel()
+
  
 }();
 
