@@ -2,19 +2,32 @@
 
 angular.module('myApp.watchlist', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/watchlist', {
-    templateUrl: 'view/watchlist.html',
-    controller: 'WatchlistController'
-  });
-}])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/watchlist', {
+            templateUrl: 'view/watchlist.html',
+            controller: 'WatchlistController'
+        });
+    }])
 
 
-.controller('WatchlistController', [function() {
+    .controller('WatchlistController', ['$scope', 'UserService',
+        function ($scope, UserService) {
+
+            function _load() {
+                UserService.getListOfWatchlist().then(
+                    function (response) {
+                         console.log(response);
+                        $scope.listOfWatchlist = response;
+                       
+                    })
+            };
+
+            _load();
+
+            $scope.getInfoForModal = function (movie) {
+                $scope.mediaModal = angular.copy(movie);
+            }
 
 
-
-
-
-}]);
+        }]);
 

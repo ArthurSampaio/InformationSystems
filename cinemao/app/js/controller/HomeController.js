@@ -9,8 +9,8 @@ angular.module('myApp.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeController', ['$scope', '$location', 'QueryService', 'UserService',
-        function ($scope, $location, QueryService, UserService) {
+    .controller('HomeController', ['$scope', 'UserService',
+        function ($scope, UserService) {
 
             function _load() {
                 UserService.getListOfPerfil().then(

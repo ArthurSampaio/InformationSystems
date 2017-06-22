@@ -9,6 +9,7 @@ angular.module('myApp', [
   'myApp.view2',
   'myApp.busca',
   'myApp.version',
+  'myApp.watchlist',
   'ngToast'  
 
 ])
@@ -27,7 +28,7 @@ angular.module('myApp', [
     $rootScope.$on('$stateChangeError',
       function (event, toState, toParams, fromState, fromParams, error) {
         console.log(event, error);
-        
+
       });
 
     $rootScope.buscar = function (tag) {
