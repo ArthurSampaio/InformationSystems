@@ -1,4 +1,4 @@
-<section>
+<aside>
     <div class="row">
         <div ng-repeat="movie in listOfPerfil">
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
@@ -23,32 +23,36 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <div class='headerInfo'>
+                            <div class='header-info'>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                                <div class='col-lg-6 col-md-6 col-sm-6'>
+                                <div class='col-lg-8 col-md-8 col-sm-8'>
                                     <h3 id="myModalLabel"><strong>{{ mediaModal.Title }}</strong></h3>
                                     <br>
-                                    <p>{{ mediaModal.Rated }} | {{ mediaModal.Runtime }} | {{ mediaModal.Genre }} | {{ Released
+                                    <p> {{ mediaModal.Rated }} | {{ mediaModal.Runtime }} | {{ mediaModal.Genre }} | {{ mediaModal.Released
                                         }} </p>
                                 </div>
-                                <div class='col-lg-6 col-md-6 col-sm-6'>
+
+                                <div class='col-lg-4 col-md-4 col-sm-4'>
+                                        <div class='star-votes'>
+                                            <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.imdbRating }}</i>/10
+                                            <hr>
+                                            <p>Votes: {{ mediaModal.imdbVotes }} </p>
+                                        </div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-body row">
-
                             <div class='col-lg-5 col-md-5 col-sm-5 mb'>
-                                <a href="#" class="thumbnail">
+                                <figure class="thumbnail">
                                     <img src="{{mediaModal.Poster}}" alt="...">
-                                </a>
+                                </figure>
                             </div>
-
                             <div class='col-lg-7 col-md-7 col-sm-7 mb'>
 
                                 <div> {{ mediaModal.Awards }} </div>
                                 <br>
-
                                 <div>
                                     <p> {{ mediaModal.Plot}}</p>
                                 </div>
@@ -67,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="myModalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="ModalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -96,7 +100,4 @@
 
         </div>
     </div>
-
-
-    </div>
-</section>
+</aside>

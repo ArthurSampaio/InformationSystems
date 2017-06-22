@@ -55,6 +55,11 @@ a, a:hover, a:focus {
     text-align: center;
 }
 
+#modalInfo .star-votes {
+
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .modal-header h3 {
     margin: 0px;
