@@ -15,7 +15,7 @@
 
                         </div>
 
-                        <p class="followers"><i class="fa fa-user-o"></i> {{movies.Title}}</p>
+                        <p class="followers"><i class="fa fa-video-camera"></i> {{" " + movies.Title}}</p>
                         <div class="btn-group btn-group-justified">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-theme02" ng-click="addToPerfil(movies)">Add To Perfil</button>
@@ -41,8 +41,10 @@
     <div ng-if="isValidTitle == false">
         <div class="row mt">
             <div class="col-lg-12">
-                <div class="form-panel thumbnail">
-                    <h3>{{tag}} não foi encontrado.</h3>
+                <div class="form-panel thumbnail" style="text-align:center;">
+                    <h2><strong> Sorry! <strong></h2>
+                    <i class="fa fa-frown-o fa-4x" aria-hidden="true"></i>
+                    <p>We cannot find the title {{tag}}</p>
                     <img class="notfound " src="/img/notfound.png">
 
                 </div>
