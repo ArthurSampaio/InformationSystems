@@ -1,14 +1,13 @@
 <aside>
     <div class="row">
+        
         <div ng-repeat="movie in listOfPerfil">
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-
                 <div class="content-panel pn">
                     <!--All the photo is a button-->
                     <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
                     </button>
                     <p class="followers"><i class="fa fa-user-o"></i> {{ movie.Title }}</p>
-
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
                             <button type="button" ng-click="getMediaToBeRemoved(movie)" class="btn btn-theme04" data-toggle='modal' data-target='#ModalRemove'
@@ -79,10 +78,11 @@
                     <div>
                         <div class='col-lg-8 col-md-8 col-sm-8'>
                             <h3 id="myModalLabel"><strong>{{ mediaTobeRemoved.Title }}</strong></h3>
-                            <p> {{ mediaTobeRemoved.Rated }} | {{ mediaTobeRemoved.Runtime }} | {{ mediaTobeRemoved.Genre }}
+                            <p> {{ mediaTobeRemoved.Rated }} 
+                                | {{ mediaTobeRemoved.Runtime }} 
+                                | {{ mediaTobeRemoved.Genre }}
                                 | {{ mediaTobeRemoved.Released }} </p>
                         </div>
-
                         <div class='col-lg-4 col-md-4 col-sm-4'>
                             <div class='star-votes'>
                                 <i class="fa fa-star fa-2x">{{ mediaTobeRemoved.imdbRating }}</i>/10
@@ -90,8 +90,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="modal-footer">
                         <div class="btn-group btn-group-justified">
                             <div class="btn-group">

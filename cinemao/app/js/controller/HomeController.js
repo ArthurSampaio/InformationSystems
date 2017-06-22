@@ -12,34 +12,26 @@ angular.module('myApp.home', ['ngRoute'])
     .controller('HomeController', ['$scope', '$location', 'QueryService', 'UserService',
         function ($scope, $location, QueryService, UserService) {
 
-
             function _load() {
                 UserService.getListOfPerfil().then(
                     function (response) {
                         $scope.listOfPerfil = response;
-                    }
-                )
-
+                })
             };
 
             _load();
+
             $scope.getInfoForModal = function (movie) {
-                console.log(movie);
                 $scope.mediaModal = angular.copy(movie);
             }
 
             $scope.getMediaToBeRemoved = function (movie) {
-
-
                 $scope.mediaTobeRemoved = angular.copy(movie);
-
-
             }
 
             $scope.removeMediaFromPerfil = function () {
 
                 const media = angular.copy($scope.mediaTobeRemoved);
-
                 UserService.removeMediaFromPerfil(media).then(
                     function (data) {
                         if (data.response) {
