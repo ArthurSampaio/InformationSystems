@@ -66,6 +66,20 @@ class User {
         return out;
     }
 
+    removeWatchlist(movie){
+        let out = false;
+        const exist = this._watchlist.map((item) => {
+            return item.imdbID
+        });
+        if (exist.indexOf(movie.imdbID) !== -1) {
+            this._watchlist = this._watchlist.filter((media) => {
+                return media.imdbID !== movie.imdbID;
+            })
+            out = true;
+        }
+        return out;
+
+    }
 
     get watchlist() {
         return [].concat(this._watchlist);

@@ -28,6 +28,16 @@ angular.module('myApp.watchlist', ['ngRoute'])
                 $scope.mediaModal = angular.copy(movie);
             }
 
+            $scope.addToPerfil = function (movie){
+                UserService.addMediaFromWatchlistToPerfil(movie).then(
+                    function(data){
+                        if(data.response){
+                            _load();
+                        }
+                    }
+                )
+            }
+
 
         }]);
 
