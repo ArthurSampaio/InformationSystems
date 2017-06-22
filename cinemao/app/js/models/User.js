@@ -54,9 +54,12 @@ class User {
     removePerfil(movie) {
         
         let out = false;
-        if (checkIfMediaExist(movie, this._perfil) !== -1) {
+        const exist = this._perfil.map((item) => {
+            return item.imdbID
+        });
+        if (exist.indexOf(movie.imdbID) !== -1) {
             this._perfil = this.perfil.filter((media) => {
-                return media.title !== movie.title;
+                return media.imdbID !== movie.imdbID;
             })
             out = true;
         }

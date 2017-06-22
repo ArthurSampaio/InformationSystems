@@ -31,7 +31,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     function _addMediaToPerfil(media) {
 
-       return QueryService.getInfoByImdbID(media.imdbID).then(
+        return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
                 console.log(response.data);
@@ -49,7 +49,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
     function _addMediaToWatchlist(media) {
-         return QueryService.getInfoByImdbID(media.imdbID).then(
+        return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
                 console.log(response.data);
@@ -66,6 +66,20 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
+    function _removeMediaFromPerfil(media) {
+        let user = load();
+        const result = user.removePerfil(angular.copy(media));
+        return $q(function (resolve, reject) {
+            if (result) {
+                _saveInternalUser(user)
+                resolve({ 'response': true });
+            } else {
+                resolve({ 'response': false });
+            }
+        });
+
+    }
+
 
     function _getInternalUser() {
         return localStorage.getItem(USER_ACTUAL);
@@ -79,7 +93,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaToPerfil: _addMediaToPerfil,
         addMediaToWatchlist: _addMediaToWatchlist,
         getListOfPerfil: _getListOfPerfil,
-        getListOfWatchlist: _getListOfWatchlist
+        getListOfWatchlist: _getListOfWatchlist,
+        removeMediaFromPerfil: _removeMediaFromPerfil
     }
 
 })
