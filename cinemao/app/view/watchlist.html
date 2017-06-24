@@ -1,21 +1,33 @@
 <aside>
     <div class="row">
-        <div ng-repeat="movie in listOfWatchlist">
-            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="content-panel pn">
-                    <!--All the photo is a button-->
-                    <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
+
+        <div ng-if="listOfWatchlist.length === 0" style="text-align:center">
+
+            <h1>You don't have any wish in your watchlist.</h1>
+            <br>
+            <i class="fa fa-shopping-cart fa-5x" aria-hidden="true"></i>
+
+        </div>
+
+        <div ng-if="listOfWatchlist.length !==0">
+            <div ng-repeat="movie in listOfWatchlist">
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <div class="content-panel pn">
+                        <!--All the photo is a button-->
+                        <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
                     </button>
-                    <p class="followers"><i class="fa fa-video-camera"></i> {{ movie.Title }}</p>
-                    <div class="btn-group btn-group-justified">
-                        <div class="btn-group">
-                            <button type="button" ng-click="addToPerfil(movie)" class="btn btn-theme02" data-toggle='modal' data-target='#ModalRemove'
-                                ng-click="">Add to Perfil</button>
+                        <p class="followers"><i class="fa fa-video-camera"></i> {{ movie.Title }}</p>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" ng-click="addToPerfil(movie)" class="btn btn-theme02" data-toggle='modal' data-target='#ModalRemove'
+                                    ng-click="">Add to Perfil</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <!--ModalInfo-->
         <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
