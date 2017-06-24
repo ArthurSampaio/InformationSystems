@@ -16,7 +16,6 @@ angular.module('myApp.watchlist', ['ngRoute'])
             function _load() {
                 UserService.getListOfWatchlist().then(
                     function (response) {
-                         console.log(response);
                         $scope.listOfWatchlist = response;
                        
                     })

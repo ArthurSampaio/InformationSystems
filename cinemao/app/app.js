@@ -5,8 +5,6 @@ angular.module('myApp', [
 
   'ngRoute',
   'myApp.home',
-  'myApp.view1',
-  'myApp.view2',
   'myApp.busca',
   'myApp.version',
   'myApp.watchlist',
