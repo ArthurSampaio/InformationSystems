@@ -39,8 +39,10 @@ angular.module('myApp.busca', ['ngRoute'])
                     $scope.isValidTitle = false;
                     $scope.moviesFinded = [];
                     $scope.tag = title;
+                    
 
                 }
+                console.log($scope.moviesFinded);
             })();
 
 

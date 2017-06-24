@@ -28,11 +28,11 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #68dff0;
+    background: #4B88A2;
     color: #fff;
 }
 ::-moz-selection {
-    background: #68dff0;
+    background: #4B88A2;
     color: #fff;
 }
 
@@ -1093,8 +1093,6 @@ label {
     border-radius: 0 6px 6px 0;
     border-color: #41cac0;
 }
-
-
 
 /*footer*/
 .site-footer {

@@ -1,6 +1,6 @@
 <aside>
     <div class="row">
-        
+
         <div ng-repeat="movie in listOfPerfil">
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div class="content-panel pn">
@@ -37,19 +37,35 @@
                                 <div class='star-votes'>
                                     <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.imdbRating }}</i>/10
                                     <p>Votes: {{ mediaModal.imdbVotes }} </p>
-                                    asnjasnajsn
+                                    <button type="button" class="btn btn-round btn-theme02" data-toggle="collapse" data-target="#rating">Rate this</button>
+                                    <div id="rating" class="collapse">
+                                        <form class="form-inline pull-right" role="form">
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" pattern="[0-9]*\.?[0-9]*" ng-model="rating" id="buscaInputField" placeholder="{{'Rate this ' + mediaModal.Type}}">
+                                            </div>
+                                            <button type="submit" ng-click="rateMedia(rating)" data-dismiss="modal" style="visibility: hidden;"></button>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="modal-body row">
                         <div class='col-lg-5 col-md-5 col-sm-5 mb'>
+                            <div></div>
                             <figure class="thumbnail">
                                 <img src="{{mediaModal.Poster}}">
                             </figure>
+
+                            <div ng-if="mediaModal.my_rating !== undefined" style="text-align:center">
+                                My vote is:
+                                <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.my_rating }}</i>/10
+                            </div>
                         </div>
                         <div class='col-lg-7 col-md-7 col-sm-7 mb'>
-
                             <div> {{ mediaModal.Awards }} </div>
                             <br>
                             <div>
@@ -57,10 +73,12 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-theme02">Save changes</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -78,9 +96,7 @@
                     <div>
                         <div class='col-lg-8 col-md-8 col-sm-8'>
                             <h3 id="myModalLabel"><strong>{{ mediaTobeRemoved.Title }}</strong></h3>
-                            <p> {{ mediaTobeRemoved.Rated }} 
-                                | {{ mediaTobeRemoved.Runtime }} 
-                                | {{ mediaTobeRemoved.Genre }}
+                            <p> {{ mediaTobeRemoved.Rated }} | {{ mediaTobeRemoved.Runtime }} | {{ mediaTobeRemoved.Genre }}
                                 | {{ mediaTobeRemoved.Released }} </p>
                         </div>
                         <div class='col-lg-4 col-md-4 col-sm-4'>

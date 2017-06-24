@@ -81,6 +81,10 @@ class User {
 
     }
 
+    addRatingToMedia(index, rating){
+        return this._perfil[index].my_rating = rating;
+    }
+
     get watchlist() {
         return [].concat(this._watchlist);
     }

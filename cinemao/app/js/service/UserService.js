@@ -94,6 +94,25 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
+    function _addRatingToMedia (media, rating) {
+
+        let user = load(); 
+        let indexMedia = user.perfil.map((item)=> {
+            return item.imdbID;
+        }).indexOf(media.imdbID);
+
+        if(indexMedia !== -1){
+            user.addRatingToMedia(indexMedia, rating);
+        }
+        return $q(function (resolve){
+                _saveInternalUser(user)
+                resolve({'response' : true});
+        })
+       
+      
+
+    }
+
     function _getInternalUser() {
         return localStorage.getItem(USER_ACTUAL);
     }
@@ -114,7 +133,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         getListOfPerfil: _getListOfPerfil,
         getListOfWatchlist: _getListOfWatchlist,
         removeMediaFromPerfil: _removeMediaFromPerfil, 
-        addMediaFromWatchlistToPerfil : _addMediaFromWatchlistToPerfil
+        addMediaFromWatchlistToPerfil : _addMediaFromWatchlistToPerfil,
+        addRatingToMedia : _addRatingToMedia
     }
 
 })

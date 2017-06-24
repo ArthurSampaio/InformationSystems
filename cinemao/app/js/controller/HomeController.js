@@ -21,6 +21,21 @@ angular.module('myApp.home', ['ngRoute'])
 
             _load();
 
+            $scope.rateMedia = function(rating){
+                
+                const media = angular.copy($scope.mediaModal);
+                UserService.addRatingToMedia(media, rating).then(
+                    function(data){
+                        if(data.response){
+                            console.log($scope.mediaModal.my_rating);
+                             $scope.rating = null;
+                             _load();
+                        }
+                    }
+                );
+               
+            }
+
             $scope.getInfoForModal = function (movie) {
                 $scope.mediaModal = angular.copy(movie);
             }
