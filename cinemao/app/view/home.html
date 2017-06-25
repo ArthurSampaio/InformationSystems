@@ -6,7 +6,7 @@
             <h1> You do not have any registered series.</h1>
             <br>
             <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
-            <br>   
+            <br>
             <h3>Search for movie that you are already see.</h3>
 
         </div>
@@ -68,7 +68,6 @@
                     </div>
                     <div class="modal-body row">
                         <div class='col-lg-5 col-md-5 col-sm-5 mb'>
-                            <div></div>
                             <figure class="thumbnail">
                                 <img src="{{mediaModal.Poster}}">
                             </figure>
@@ -79,10 +78,41 @@
                             </div>
                         </div>
                         <div class='col-lg-7 col-md-7 col-sm-7 mb'>
-                            <div> {{ mediaModal.Awards }} </div>
-                            <br>
-                            <div>
+                            <div class="awards showback">
+                                <h4>Awards:</h4>
+                                {{ mediaModal.Awards }}
+                                <br>
+                                <h4>Plot</h4>
                                 <p> {{ mediaModal.Plot}}</p>
+                            </div>
+                            <div class="showback" ng-if="mediaModal.Type === 'series'">
+                                Add your commentaries about {{ mediaModal.Title }}
+                                <!--add comentario-->
+                                <form class="form">
+                                    <table class="table">
+                                        <thead class="thead-inverse">
+                                            <tr class="text-center">
+                                                <th>EP</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="comment in mediaModal.commentaries"></tr>
+                                        <th> {{ commment.episode }} </th>
+                                        <th> {{ comment.description }} </th>
+                                    </table>
+                                    <div class='col-lg-3 col-md-3 col-sm-3'>
+                                        <input class="form-control" type="text" ng-model="commment.episode" placeholder="Episode" />
+                                    </div>
+                                    <div class='col-lg-9 col-md-9 col-sm-9'>
+                                        <input class="form-control" type="text" ng-model="comment.description" placeholder="Description" />
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" ng-click="addComment(comment)" class="btn btn-theme02 btn-xs btn-block">Add commentary</button>
+                                    </div>
+                                    <!--/showback -->
+
+                                </form>
                             </div>
                         </div>
                     </div>

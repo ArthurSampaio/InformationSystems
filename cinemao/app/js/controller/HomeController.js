@@ -13,6 +13,7 @@ angular.module('myApp.home', ['ngRoute'])
         function ($scope, UserService) {
 
             function _load() {
+            
                 UserService.getListOfPerfil().then(
                     function (response) {
                         $scope.listOfPerfil = response;
@@ -33,8 +34,12 @@ angular.module('myApp.home', ['ngRoute'])
                         }
                     }
                 );
-               
             }
+
+            $scope.addComment = function (comment){
+                console.log(comment);
+            }
+            
 
             $scope.getInfoForModal = function (movie) {
                 $scope.mediaModal = angular.copy(movie);
@@ -52,7 +57,7 @@ angular.module('myApp.home', ['ngRoute'])
                         if (data.response) {
                             _load();
                         }
-                    })
+                    });
             }
 
         }]);

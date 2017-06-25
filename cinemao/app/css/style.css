@@ -36,6 +36,10 @@ a, a:hover, a:focus {
     color: #fff;
 }
 
+.text-center {
+    text-align: center;
+}
+
 #container {
     width: 100%;
     height: 100%;
@@ -70,6 +74,11 @@ a, a:hover, a:focus {
 /*Modal's mofication*/
 #ModalRemove .modal-header{
     background: #ed5565
+}
+
+.awards {
+    text-align: center; 
+    font-size: 12px;
 }
 
 
