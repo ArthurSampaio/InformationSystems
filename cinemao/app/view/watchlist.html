@@ -21,8 +21,7 @@
                         <p class="followers"><i class="fa fa-video-camera"></i> {{ movie.Title }}</p>
                         <div class="btn-group btn-group-justified">
                             <div class="btn-group">
-                                <button type="button" ng-click="addToPerfil(movie)" class="btn btn-theme02" data-toggle='modal' data-target='#ModalRemove'
-                                    ng-click="">Add to Perfil</button>
+                                <button type="button" class="btn btn-theme02" ng-click="getInfoForPerfil(movie)" data-toggle='modal' data-target='#ModalToPerfil' ng-click="">Add to Perfil</button>
                             </div>
                         </div>
                     </div>
@@ -30,6 +29,25 @@
             </div>
         </div>
 
+        <!--ModalToPerfil-->
+        <div class="modal fade" id="ModalToPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class='header-info'>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h2>Are your sure about this?</h2>
+                            <p>You will add to perfil {{modalPerfil.Title}}</p>
+                        </div>
+                    </div>
+                   
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-theme03" ng-click="addToPerfil()" data-dismiss="modal">Yeah!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--ModalInfo-->
         <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

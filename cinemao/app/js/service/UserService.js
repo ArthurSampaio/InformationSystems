@@ -108,10 +108,24 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 _saveInternalUser(user)
                 resolve({'response' : true});
         })
-       
-      
+    }
+
+    function _addCommentToSerie (serie, comment) {
+        let user = load(); 
+        let indexMedia = user.perfil.map((item)=> {
+            return item.imdbID;
+        }).indexOf(serie.imdbID);
+
+        if(indexMedia !== -1){
+            user.addCommentToSerie(indexMedia, comment);
+        }
+        return $q(function (resolve){
+            _saveInternalUser(user);
+            resolve({'response': true});
+        });
 
     }
+
 
     function _getInternalUser() {
         return localStorage.getItem(USER_ACTUAL);
@@ -128,13 +142,15 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
     return {
+        
         addMediaToPerfil: _addMediaToPerfil,
         addMediaToWatchlist: _addMediaToWatchlist,
         getListOfPerfil: _getListOfPerfil,
         getListOfWatchlist: _getListOfWatchlist,
         removeMediaFromPerfil: _removeMediaFromPerfil, 
         addMediaFromWatchlistToPerfil : _addMediaFromWatchlistToPerfil,
-        addRatingToMedia : _addRatingToMedia
+        addRatingToMedia : _addRatingToMedia, 
+        addCommentToSerie : _addCommentToSerie
     }
 
 })

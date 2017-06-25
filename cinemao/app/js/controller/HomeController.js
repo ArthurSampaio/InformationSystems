@@ -36,8 +36,19 @@ angular.module('myApp.home', ['ngRoute'])
                 );
             }
 
-            $scope.addComment = function (comment){
-                console.log(comment);
+            $scope.addComment = function (commentary){
+                const media = angular.copy($scope.mediaModal);
+                UserService.addCommentToSerie(media, commentary).then(
+                    function(data){
+                        if(data.response){
+                            console.log($scope.mediaModal.commentaries);
+                            _load();
+                            $scope.commentary = {'episode': "", 'description':""};
+                            $scope.commentary = null;
+                            
+                        }
+                    }
+                )
             }
             
 

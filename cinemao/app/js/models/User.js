@@ -93,11 +93,19 @@ class User {
         return [].concat(this._perfil);
     }
 
+    addCommentToSerie(index, comment){
+        if(this._perfil[index].commentaries === undefined){
+            this._perfil[index].commentaries = [];
+        }
+        console.log(comment);
+        return this._perfil[index].commentaries.push(comment);
+    }
+
 
     checkIfMediaExist(media, list) {
 
         return list.map((item) => {
-            item.imdbID
+            return item.imdbID
         }).indexOf(media.imdbID);
 
     }
