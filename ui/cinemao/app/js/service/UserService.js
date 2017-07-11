@@ -128,14 +128,17 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
 
     function _getInternalUser() {
+        
         return localStorage.getItem(USER_ACTUAL);
     }
 
     function _saveInternalUser(user) {
+
         return localStorage.setItem('USER', JSON.stringify(user));
     }
 
     function _addMediaFromWatchlistToPerfil(media) {
+
         _addMediaToPerfil(media);
         return _removeMediaFromWatchlist(media);
 
