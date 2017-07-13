@@ -2,15 +2,13 @@ package com.si.cinemao.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by sampaio on 11/07/17.
  */
 @Entity
+@Table(name = "TABLE_SERIES")
 public class Series {
 
     @JsonIgnore

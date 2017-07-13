@@ -1,5 +1,7 @@
 package com.si.cinemao.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.print.DocFlavor;
@@ -11,6 +13,7 @@ import java.util.Set;
  * Created by sampaio on 11/07/17.
  */
 @Entity
+@Table(name = "TABLE_USER")
 public class User {
 
     @OneToMany(mappedBy = "user")
@@ -36,6 +39,14 @@ public class User {
     private String email;
 
     User(){}
+
+    public User(String username, String password, String email) {
+        this.series = new HashSet<>();
+        this.watchlist = new HashSet<>();
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     public Set<Series> getSeries() {
         return series;
@@ -74,7 +85,7 @@ public class User {
         this.email = email;
     }
 
-    public Set<Series> getWatchlist() {
+    public Set<Series> getWatwchlist() {
         return watchlist;
     }
 

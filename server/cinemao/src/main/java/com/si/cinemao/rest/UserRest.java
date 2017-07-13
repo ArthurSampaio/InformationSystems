@@ -1,14 +1,20 @@
 package com.si.cinemao.rest;
 
+import com.si.cinemao.pojo.Series;
 import com.si.cinemao.pojo.User;
+import com.si.cinemao.pojo.UserForm;
+import com.si.cinemao.repositories.SeriesRepository;
 import com.si.cinemao.repositories.UserRepository;
+import com.si.cinemao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by sampaio on 11/07/17.
@@ -17,22 +23,33 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserRest {
 
-    private final UserRepository userRepository;
 
     @Autowired
-    UserRest(UserRepository userRepo){
-        this.userRepository = userRepo;
+    private UserService userService;
+
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/create")
+    public ResponseEntity<User> createUser (@RequestBody UserForm userform) {
+
+        User user = userService.createUser(userform);
+
+        return (user != null) ? ResponseEntity.ok(user) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        //TODO: 1 - create user through a service
+        //Return a response entity
+
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    List<User> findAl(){
-        List<User> users = userRepository.findAll();
-        return users;
+    public ResponseEntity<Collection<User>> getAllRegisterUsers() {
+
+        Collection<User> users = userService.getAllUsers();
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    User add(@RequestBody User user){
-        User userCheck = userRepository.save(user);
-        return userCheck;
-    }
+
+
 }
