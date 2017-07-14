@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 import javax.xml.ws.Response;
 import java.util.Collection;
@@ -63,10 +64,22 @@ public class UserRest {
     
     @RequestMapping(method = RequestMethod.GET, value = "/perfil/{id}")
     public ResponseEntity<Collection<Series>> getSeriesInPerfilFromUserID (@PathVariable Long id){
-        
+
+
         Collection<Series> seriesInPerfil =  userService.getSeriesInUserPerfil(id);
 
         return new ResponseEntity<Collection<Series>>(seriesInPerfil, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/watchlist/{id}")
+    public ResponseEntity<Collection<Series>> getSeriesInWatchlist(@PathVariable Long id){
+
+        Collection<Series> seriesInWatchlist =  userService.getSeriesInUserWatchlist(id);
+
+        return new ResponseEntity<Collection<Series>>(seriesInWatchlist, HttpStatus.OK);
+
+
 
     }
 
