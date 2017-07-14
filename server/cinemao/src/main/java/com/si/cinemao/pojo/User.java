@@ -85,7 +85,7 @@ public class User {
         this.email = email;
     }
 
-    public Set<Series> getWatwchlist() {
+    public Set<Series> getWatchlist() {
         return watchlist;
     }
 
@@ -112,5 +112,15 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

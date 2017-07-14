@@ -10,13 +10,7 @@ The course it is offered by the Departament of Systems and Computing - Federal U
 
 * JavaScript, AngularJS
 * HTML5/CSS
+* Spring Boot, Hibernate, JPA, Java 
 
 
-## how to run the project? 
 
-```{bash}
-
-npm install 
-npm start
-
-```
