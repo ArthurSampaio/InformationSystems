@@ -56,7 +56,7 @@ public class UserRest {
         if(user == null){
             response =  new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        response = new ResponseEntity<User>(user, HttpStatus.OK);
+        response = new ResponseEntity<>(user, HttpStatus.OK);
 
         return response;
 
@@ -68,7 +68,7 @@ public class UserRest {
 
         Collection<Series> seriesInPerfil =  userService.getSeriesInUserPerfil(id);
 
-        return new ResponseEntity<Collection<Series>>(seriesInPerfil, HttpStatus.OK);
+        return new ResponseEntity<>(seriesInPerfil, HttpStatus.OK);
 
     }
 
@@ -79,7 +79,12 @@ public class UserRest {
 
         return new ResponseEntity<Collection<Series>>(seriesInWatchlist, HttpStatus.OK);
 
+    }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    public ResponseEntity<User> makeLogin (@RequestBody UserForm user){
+        User userChecked = userService.login(user);
+        return new ResponseEntity(userChecked, HttpStatus.OK);
 
     }
 

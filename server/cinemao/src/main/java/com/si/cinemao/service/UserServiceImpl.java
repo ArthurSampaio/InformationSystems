@@ -1,6 +1,8 @@
 package com.si.cinemao.service;
 
 import com.si.cinemao.exception.CinemaoRuntimeError;
+import com.si.cinemao.exception.RegisteredUserException;
+import com.si.cinemao.exception.UserNotFoundException;
 import com.si.cinemao.pojo.Series;
 import com.si.cinemao.pojo.User;
 import com.si.cinemao.pojo.UserForm;
@@ -21,12 +23,18 @@ import java.util.List;
 @Configurable
 public class UserServiceImpl implements UserService {
 
+    private static final String USER_NOT_FOUND_WRONG = "User not found. Email or password are incorrect.";
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public User createUser(UserForm userForm) {
+
+
+        if(this.existUser(userForm.getEmail())){
+            throw new RegisteredUserException();
+        }
 
         User user = UserFactory.create(userForm);
 
@@ -59,9 +67,29 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User login(UserForm user) {
+        User userDB = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
+        if(userDB == null){
+            throw new UserNotFoundException(USER_NOT_FOUND_WRONG);
+        }else{
+            return userDB;
+        }
+
+    }
+
+    private boolean existUser(String email){
+
+        User user = userRepository.findByEmail(email).get();
+        boolean response = false;
+        if (user != null) response = true;
+        return response;
+
+    }
+
     /**
      * Verifica se um dado id existe no repositório. Retornando uma instância válida ou lançando uma
-     * Exception.
+     * RuntimeException.
      * @param id
      *      Id do usuário
      * @return
@@ -72,11 +100,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOne(id);
 
         if(user == null){
-            throw new CinemaoRuntimeError("User not found");
+            throw new UserNotFoundException("User not found");
         }else{
             return user;
         }
-
 
     }
 }
