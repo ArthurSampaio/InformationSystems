@@ -16,11 +16,20 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
         return $http.get(config.baseUrl + IMDB_ID + mediaID);
     }
 
+    function _makeLogin (email, password){
+        
+        let user = {"username":"", "password": password, "email":email}
+
+        return $http.post("/user/login", JSON.stringify(user));
+
+    }
+
     
 
     return {
         searchByTitle : _searchByTitle, 
-        getInfoByImdbID : _getInfoByImdbID
+        getInfoByImdbID : _getInfoByImdbID, 
+        makeLogin : _makeLogin
     }
 
 

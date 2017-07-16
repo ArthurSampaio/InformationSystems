@@ -24,12 +24,13 @@ angular.module('myApp', [
 
   .run(['$rootScope', '$location', function ($rootScope, $location) {
 
-    let currentPage = $location.path(); 
-    console.log(currentPage);
+   
 
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if($rootScope.loggedInUser == null){
         $location.path("/login");
+        $rootScope.currentPage = $location.path();
+      
       }
     })
 

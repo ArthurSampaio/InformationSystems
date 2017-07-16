@@ -9,8 +9,8 @@ angular.module('myApp.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeController', ['$scope', 'UserService',
-        function ($scope, UserService) {
+    .controller('HomeController', ['$scope', 'UserService','$rootScope','$location',
+        function ($scope, UserService, $rootScope, $location) {
 
             function _load() {
             
@@ -18,9 +18,11 @@ angular.module('myApp.home', ['ngRoute'])
                     function (response) {
                         $scope.listOfPerfil = response;
                 })
+                 $rootScope.currentPage = $location.path();
             };
 
             _load();
+            
 
             $scope.rateMedia = function(rating){
                 

@@ -147,6 +147,21 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
+    function _login(email, password) {
+
+        return QueryService.makeLogin(email, password).then(
+            function (response) {
+                let data = response.data; 
+                let user = {"_watchlist": data.watchlist, "_perfil": data.series};
+               
+                _saveInternalUser(user);
+                return data.username;                 
+            }
+        )
+
+
+    }
+
 
     return {
 
@@ -158,7 +173,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-       
+        login : _login
+
     }
 
 })

@@ -9,17 +9,25 @@ angular.module('myApp.login', ['ngRoute'])
         });
     }])
 
-    .controller('LoginController', ['$scope', '$location', '$rootScope',
-        function ($scope, $location, $rootScope) {
+    .controller('LoginController', ['$scope', '$location', '$rootScope', 'UserService',
+        function ($scope, $location, $rootScope, UserService) {
 
-          
+            console.log($rootScope.loggedInUser)
+
             $scope.login = function (email, password) {
-                let deubom = true; 
-            
 
-                console.log(email);
-                console.log(password);
-                 
+                password = "12365614";
+                email = "uruabaauzao@a.com";
+
+                UserService.login(email, password).then(
+                    function (response) {
+                        $rootScope.loggedInUser = response;
+                        $location.path('/home');
+
+                    }
+                )
+
+
             }
 
         }]);
