@@ -29,7 +29,6 @@ angular.module('myApp', [
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if($rootScope.loggedInUser == null){
         $location.path("/login");
-        $rootScope.currentPage = $location.path();
       
       }
     })
@@ -43,6 +42,14 @@ angular.module('myApp', [
       $rootScope.tag = null;
 
     };
+
+    $rootScope.logout = function () {
+
+      $rootScope.loggedInUser = null; 
+      $location.path("/login");
+
+            
+    }
 
   }]);
 
