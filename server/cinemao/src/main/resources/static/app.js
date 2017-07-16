@@ -22,13 +22,6 @@ angular.module('myApp', [
 
   }])
 
-  .controller('rootController', ['$scope', '$location', function ($scope, $location){
-
-    $scope.page = $location.path(); 
-    console.log($scope.page);
-
-  }])
-
   .run(['$rootScope', '$location', function ($rootScope, $location) {
 
     let currentPage = $location.path(); 
@@ -41,11 +34,7 @@ angular.module('myApp', [
     })
 
     const INITIAL_PAGE = 1;
-    $rootScope.$on('$stateChangeError',
-      function (event, toState, toParams, fromState, fromParams, error) {
-        console.log(event, error);
-
-      });
+    
 
     $rootScope.buscar = function (tag) {
 

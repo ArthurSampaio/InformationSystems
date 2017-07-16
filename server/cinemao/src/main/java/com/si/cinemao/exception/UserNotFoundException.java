@@ -9,7 +9,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class UserNotFoundException extends CinemaoRuntimeError{
 
+    private static final String MESSAGE = "USER NOT FOUND";
+
     public UserNotFoundException(String message) {
         super(message);
+    }
+
+    public UserNotFoundException(){
+        super(MESSAGE);
     }
 }

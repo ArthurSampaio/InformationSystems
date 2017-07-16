@@ -12,11 +12,14 @@ angular.module('myApp.login', ['ngRoute'])
     .controller('LoginController', ['$scope', '$location', '$rootScope',
         function ($scope, $location, $rootScope) {
 
-            console.log($location.$$path);
-            $scope.login = function (user) {
+          
+            $scope.login = function (email, password) {
                 let deubom = true; 
-                if(deubom) $rootScope.loggedInUser = "username"; 
-                
+            
+
+                console.log(email);
+                console.log(password);
+                 
             }
 
         }]);

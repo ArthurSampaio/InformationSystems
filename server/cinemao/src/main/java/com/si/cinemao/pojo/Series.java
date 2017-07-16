@@ -21,13 +21,28 @@ public class Series {
 
     Series(){}
 
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "poster")
     private String poster;
+
+    @Column(name = "imdbRating")
     private Double imdbRating;
+
+    @Column(name = "rated")
     private Double rated;
+
+    @Column(name = "runtime")
     private String runtime;
+
+    @Column(name = "genre")
     private String genre;
+
+    @Column(name = "type")
     private String type;
+
+
 
     public User getUser() {
         return user;

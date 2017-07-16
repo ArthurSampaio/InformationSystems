@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserForm userForm) {
 
-
-        if(this.existUser(userForm.getEmail())){
+        if(existUser(userForm.getEmail())){
             throw new RegisteredUserException();
         }
 
@@ -61,24 +60,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Collection<Series> getSeriesInUserWatchlist(Long id) {
+
         User user = validUser(id);
         return user.getWatchlist();
-
 
     }
 
     @Override
     public User login(UserForm user) {
-        User userDB = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
+        User userDB = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         return userDB;
 
     }
 
-    private boolean existUser(String email){
+    @Override
+    public User updateUser(User user) {
 
-        User user = userRepository.findByEmail(email).get();
+        if(userRepository.exists(user.getId())){
+           return userRepository.save(user);
+        }else{
+            throw new UserNotFoundException();
+        }
+    }
+
+    public boolean existUser(String email){
+
+        User user = userRepository.findByEmail(email);
+
         boolean response = false;
-        if (user != null) response = true;
+        if (user != null){
+            response = true;
+        }
         return response;
 
     }
@@ -91,7 +103,7 @@ public class UserServiceImpl implements UserService {
      * @return
      *      Uma instância de user;
      */
-    private User validUser (Long id){
+    public User validUser (Long id){
 
         User user = userRepository.findOne(id);
 

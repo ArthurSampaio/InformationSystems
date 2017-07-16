@@ -30,58 +30,60 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
     <!--header start-->
-    <header class="header black-bg"  >
+    <div ng-if="currentPage != /login">
+      <header class="header black-bg">
 
-      <div class="sidebar-toggle-box">
-        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-      </div>
+        <div class="sidebar-toggle-box">
+          <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
 
-      <!--logo start-->
-      <a href="#!/" class="logo"><b>CINEMÃO DO SAMPAIO</a>
-      <!--logo end-->
+        <!--logo start-->
+        <a href="#!/" class="logo"><b>CINEMÃO DO SAMPAIO</a>
+        <!--logo end-->
 
-      <div class="top-menu">
-        <form class="form-inline pull-right" role="form">
-          <div class="form-group">
-            <input type="text" class="form-control" ng-model="tag" id="buscaInputField" placeholder="Buscar">
-          </div>
-          <button type="submit" ng-click="buscar(tag)" class="btn btn-theme">Go!</button>
-        </form>
-      </div>
+        <div class="top-menu">
+          <form class="form-inline pull-right" role="form">
+            <div class="form-group">
+              <input type="text" class="form-control" ng-model="tag" id="buscaInputField" placeholder="Buscar">
+            </div>
+            <button type="submit" ng-click="buscar(tag)" class="btn btn-theme">Go!</button>
+          </form>
+        </div>
 
-    </header>
-    <!--header end-->
+      </header>
+      <!--header end-->
 
-    <!-- **********************************************************************************************************************************************************
+      <!-- **********************************************************************************************************************************************************
       MAIN SIDEBAR MENU
       *********************************************************************************************************************************************************** -->
-    <!--sidebar start-->
-    <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
+      <!--sidebar start-->
+      <aside>
+        <div id="sidebar" class="nav-collapse">
+          <!-- sidebar menu start-->
+          <ul class="sidebar-menu" id="nav-accordion">
 
-          <p class="centered"><a href="/#!"><img src="./img/user.jpg" class="img-circle" width="160"></a></p>
-          <h5 class="centered">Jah Ras Tafari</h5>
+            <p class="centered"><a href="/#!"><img src="./img/user.jpg" class="img-circle" width="160"></a></p>
+            <h5 class="centered">Jah Ras Tafari</h5>
 
-          <li class="mt">
-            <a href="/#!/home">
+            <li class="mt">
+              <a href="/#!/home">
                 <i class="fa fa-home"></i>
                 <span>Home</span>
             </a>
-          </li>
+            </li>
 
-          <li class="sub-menu">
-            <a href="/#!/watchlist">
+            <li class="sub-menu">
+              <a href="/#!/watchlist">
                 <i class="fa fa-desktop"></i>
                 <span>WatchList</span>
             </a>
-          </li>
-        </ul>
-        <!-- sidebar menu end-->
-      </div>
-    </aside>
-    <!--sidebar end-->
+            </li>
+          </ul>
+          <!-- sidebar menu end-->
+        </div>
+      </aside>
+      <!--sidebar end-->
+    </div>
 
     <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -91,8 +93,11 @@
       <section class="wrapper site-min-height">
         <div class="row mt">
           <div class="col-lg-12">
-            <toast></toast>
-            <div ng-view></div>
+
+            <div ng-view>
+              <toast></toast>
+
+            </div>
           </div>
         </div>
 
@@ -112,6 +117,9 @@
     </footer>
     <!--footer end-->
   </section>
+
+
+
 
 
   <!--Scripts-->

@@ -21,7 +21,8 @@ public interface UserService {
 
     Collection<Series> getSeriesInUserWatchlist (Long id);
 
-
     User login(UserForm user);
+
+    User updateUser(User user);
 
 }

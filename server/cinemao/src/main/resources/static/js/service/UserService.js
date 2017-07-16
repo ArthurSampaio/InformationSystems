@@ -147,9 +147,6 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
-    function _getUserMoc(){
-        return $http.get(USER_MOC);
-    }
 
     return {
 
@@ -161,7 +158,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-        getUserMoc : _getUserMoc
+       
     }
 
 })

@@ -38,6 +38,15 @@ public class UserRest {
 
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+
+        User userSaved = userService.updateUser(user);
+
+        return (userSaved != null) ? ResponseEntity.ok(userSaved) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<User>> getAllRegisterUsers() {
 
@@ -62,30 +71,13 @@ public class UserRest {
 
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/perfil/{id}")
-    public ResponseEntity<Collection<Series>> getSeriesInPerfilFromUserID (@PathVariable Long id){
-
-
-        Collection<Series> seriesInPerfil =  userService.getSeriesInUserPerfil(id);
-
-        return new ResponseEntity<>(seriesInPerfil, HttpStatus.OK);
-
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/watchlist/{id}")
-    public ResponseEntity<Collection<Series>> getSeriesInWatchlist(@PathVariable Long id){
-
-        Collection<Series> seriesInWatchlist =  userService.getSeriesInUserWatchlist(id);
-
-        return new ResponseEntity<Collection<Series>>(seriesInWatchlist, HttpStatus.OK);
-
-    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity<User> makeLogin (@RequestBody UserForm user){
 
         User userChecked = userService.login(user);
         ResponseEntity<User> response;
+
         if(user == null){
             response = new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }else{

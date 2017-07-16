@@ -10,7 +10,7 @@ public class UserFactory {
 
     public static User create(UserForm user){
 
-        User out = new User(user.getUsername(), user.getEmail(), user.getPassword() );
+        User out = new User(user.getUsername(), user.getPassword(), user.getEmail() );
 
         return out;
 
