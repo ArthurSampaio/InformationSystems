@@ -83,13 +83,18 @@ public class UserRest {
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity<User> makeLogin (@RequestBody UserForm user){
+
         User userChecked = userService.login(user);
-        return new ResponseEntity(userChecked, HttpStatus.OK);
+        ResponseEntity<User> response;
+        if(user == null){
+            response = new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+        }else{
+            response = new ResponseEntity(userChecked, HttpStatus.OK);
+        }
+
+        return response;
 
     }
-
-
-
 
 
 }

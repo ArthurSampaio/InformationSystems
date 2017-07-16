@@ -70,11 +70,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(UserForm user) {
         User userDB = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
-        if(userDB == null){
-            throw new UserNotFoundException(USER_NOT_FOUND_WRONG);
-        }else{
-            return userDB;
-        }
+        return userDB;
 
     }
 

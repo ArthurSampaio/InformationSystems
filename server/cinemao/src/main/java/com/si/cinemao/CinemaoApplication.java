@@ -15,5 +15,4 @@ public class CinemaoApplication {
 		SpringApplication.run(CinemaoApplication.class, args);
 	}
 
-
 }
