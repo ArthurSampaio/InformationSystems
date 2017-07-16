@@ -1,0 +1,161 @@
+<aside>
+    <div class="row">
+
+        <div ng-if="listOfPerfil.length === 0" style="text-align: center">
+
+            <h1> You do not have any registered series.</h1>
+            <br>
+            <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
+            <br>
+            <h3>Search for movie that you are already see.</h3>
+
+        </div>
+
+        <div ng-if="listOfPerfil.length !== 0">
+            <div ng-repeat="movie in listOfPerfil">
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <div class="content-panel pn">
+                        <!--All the photo is a button-->
+                        <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
+                    </button>
+                        <p class="followers"><i class="fa fa-video-camera"></i> {{ movie.Title }}</p>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" ng-click="getMediaToBeRemoved(movie)" class="btn btn-theme04" data-toggle='modal' data-target='#ModalRemove'
+                                    ng-click="">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--ModalInfo-->
+        <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class='header-info'>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                            <div class='col-lg-8 col-md-8 col-sm-8'>
+                                <h3 id="myModalLabel"><strong>{{ mediaModal.Title }}</strong></h3>
+                                <br>
+                                <p> {{ mediaModal.Rated }} | {{ mediaModal.Runtime }} | {{ mediaModal.Genre }} | {{ mediaModal.Released
+                                    }} </p>
+                            </div>
+
+                            <div class='col-lg-4 col-md-4 col-sm-4'>
+                                <div class='star-votes'>
+                                    <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.imdbRating }}</i>/10
+                                    <p>Votes: {{ mediaModal.imdbVotes }} </p>
+                                    <button type="button" class="btn btn-round btn-theme02" data-toggle="collapse" data-target="#rating">Rate this</button>
+                                    <div id="rating" class="collapse">
+                                        <form class="form-inline pull-right" role="form">
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" pattern="[0-9]\.?[0-9]*" ng-model="rating" id="buscaInputField" placeholder="{{'Rate this ' + mediaModal.Type}}">
+                                            </div>
+                                            <button type="submit" ng-click="rateMedia(rating)" data-dismiss="modal" style="visibility: hidden;"></button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-body row">
+                        <div class='col-lg-5 col-md-5 col-sm-5 mb'>
+                            <figure class="thumbnail">
+                                <img src="{{mediaModal.Poster}}">
+                            </figure>
+
+                            <div ng-if="mediaModal.my_rating !== undefined" style="text-align:center">
+                                My vote is:
+                                <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.my_rating }}</i>/10
+                            </div>
+                        </div>
+                        <div class='col-lg-7 col-md-7 col-sm-7 mb'>
+                            <div class="awards showback">
+                                <h4>Awards:</h4>
+                                {{ mediaModal.Awards }}
+                                <br>
+                                <h4>Plot</h4>
+                                <p> {{ mediaModal.Plot}}</p>
+                            </div>
+                            <div class="showback" ng-if="mediaModal.Type === 'series'">
+                                <p>Add your commentaries about {{ mediaModal.Title }}</p>
+                                <!--add comentario-->
+                                <form class="form">
+                                    <table class="table">
+                                        <thead class="thead-inverse">
+                                            <tr class="text-center">
+                                                <th>EP</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tr ng-repeat="comment in mediaModal.commentaries">
+                                        <p>{{comment || JSON}}</p>
+                                        <th> {{ comment.episode }} </th>
+                                        <th> {{ comment.description }} </th>
+                                        </tr>
+                                    </table>
+                                    <div class='col-lg-3 col-md-3 col-sm-3'>
+                                        <input class="form-control" type="text" id="commentary" ng-model="commentary.episode" placeholder="Episode" />
+                                    </div>
+                                    <div class='col-lg-9 col-md-9 col-sm-9'>
+                                        <input class="form-control" type="text" id="description" ng-model="commentary.description" placeholder="Description" />
+
+                                    </div>
+
+                                        <button type="submit" ng-click="addComment(commentary)" ng-show="commentary.episode && commentary.description"
+                                         class="btn btn-theme02 btn-xs btn-block"  data-dismiss="modal" >Add commentary</button>
+                                    <!--/showback -->
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Fim do modal info-->
+
+        <!--Modal Remove-->
+        <div class="modal fade" id="ModalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-meh-o fa-2x" aria-hidden="true"></i> Are you sure that you want remove this {{ mediaTobeRemoved.Type
+                            }} ?</h4>
+                    </div>
+                    <div>
+                        <div class='col-lg-8 col-md-8 col-sm-8'>
+                            <h3 id="myModalLabel"><strong>{{ mediaTobeRemoved.Title }}</strong></h3>
+                            <p> {{ mediaTobeRemoved.Rated }} | {{ mediaTobeRemoved.Runtime }} | {{ mediaTobeRemoved.Genre }}
+                                | {{ mediaTobeRemoved.Released }} </p>
+                        </div>
+                        <div class='col-lg-4 col-md-4 col-sm-4'>
+                            <div class='star-votes'>
+                                <i class="fa fa-star fa-2x">{{ mediaTobeRemoved.imdbRating }}</i>/10
+                                <p>Votes: {{ mediaTobeRemoved.imdbVotes }} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger" ng-click="removeMediaFromPerfil()" data-dismiss="modal">Remove and Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ModalRemove end's-->
+    </div>
+</aside>

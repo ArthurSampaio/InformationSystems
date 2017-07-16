@@ -1,0 +1,56 @@
+<section>
+ <!--<toast class=".col-md-4 .offset-md-4"></toast>-->
+    <div ng-if="isValidTitle">
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous"><a ng-click="previous()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+                <li class="next"><a ng-click="next()">Next<span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+        <div class="row">
+            <div ng-repeat="movies in moviesFinded">
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <div class="content-panel pn">
+                        <div id="spotify" ng-style="{'background' : 'url({{movies.Poster}}) no-repeat center top'}">
+
+                        </div>
+
+                        <p class="followers"><i class="fa fa-video-camera"></i> {{" " + movies.Title}}</p>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-theme02" ng-click="addToPerfil(movies)">Add To Perfil</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-theme03" ng-click="addToWatchlist(movies)">Add to Watchlist</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous"><a ng-click="previous()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+                <li class="next"><a ng-click="next()">Next<span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div ng-if="isValidTitle === false">
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel thumbnail" style="text-align:center;">
+                    <h2><strong> Sorry! <strong></h2>
+                    <i class="fa fa-frown-o fa-4x" aria-hidden="true"></i>
+                    <p>We cannot find the title<big> {{tag}}</big></p>
+                    <img class="notfound " src="/img/notfound.png">
+
+                </div>
+                <!-- /form-panel -->
+            </div>
+            <!-- /col-lg-12 -->
+        </div>
+    </div>
+</section>

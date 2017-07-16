@@ -1,0 +1,94 @@
+<aside>
+    <div class="row">
+
+        <div ng-if="listOfWatchlist.length === 0" style="text-align:center">
+
+            <h1>You don't have any wish in your watchlist.</h1>
+            <br>
+            <i class="fa fa-shopping-cart fa-5x" aria-hidden="true"></i>
+            <br>
+            <h3>Search for movies and series that you want see.</h3>
+
+        </div>
+
+        <div ng-if="listOfWatchlist.length !==0">
+            <div ng-repeat="movie in listOfWatchlist">
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <div class="content-panel pn">
+                        <!--All the photo is a button-->
+                        <button type="button" data-toggle='modal' data-target='#modalInfo' id="spotify" ng-click="getInfoForModal(movie)" ng-style="{'background' : 'url({{movie.Poster}}) no-repeat center top'}">
+                    </button>
+                        <p class="followers"><i class="fa fa-video-camera"></i> {{ movie.Title }}</p>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-theme02" ng-click="getInfoForPerfil(movie)" data-toggle='modal' data-target='#ModalToPerfil' ng-click="">Add to Perfil</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ModalToPerfil-->
+        <div class="modal fade" id="ModalToPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class='header-info'>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h2>Are your sure about this?</h2>
+                            <p>You will add to perfil {{modalPerfil.Title}}</p>
+                        </div>
+                    </div>
+                   
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-theme03" ng-click="addToPerfil()" data-dismiss="modal">Yeah!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ModalInfo-->
+        <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class='header-info'>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <div class='col-lg-8 col-md-8 col-sm-8'>
+                                <h3 id="myModalLabel"><strong>{{ mediaModal.Title }}</strong></h3>
+                                <br>
+                                <p> {{ mediaModal.Rated }} | {{ mediaModal.Runtime }} | {{ mediaModal.Genre }} | {{ mediaModal.Released
+                                    }} </p>
+                            </div>
+                            <div class='col-lg-4 col-md-4 col-sm-4'>
+                                <div class='star-votes'>
+                                    <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.imdbRating }}</i>/10
+                                    <p>Votes: {{ mediaModal.imdbVotes }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body row">
+                        <div class='col-lg-5 col-md-5 col-sm-5 mb'>
+                            <figure class="thumbnail">
+                                <img src="{{mediaModal.Poster}}">
+                            </figure>
+                        </div>
+                        <div class='col-lg-7 col-md-7 col-sm-7 mb'>
+
+                            <div> {{ mediaModal.Awards }} </div>
+                            <br>
+                            <div>
+                                <p> {{ mediaModal.Plot}}</p>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <!--Fim do modal info-->
+    </div>
+</aside>
