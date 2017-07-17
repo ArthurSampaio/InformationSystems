@@ -14,4 +14,8 @@ public interface SeriesService {
 
     Series addSeries (SeriesForm serie);
 
+    Collection<Series> getSeriesByUserId(Long id);
+
+    Series getSerieByUserIdAndImdbID (Long userId, String imdbID);
+
 }

@@ -16,8 +16,8 @@ angular.module('myApp.login', ['ngRoute'])
 
             $scope.login = function (email, password) {
 
-                password = "12365614";
-                email = "arthursampaio@a.com";
+                password = "12a365614";
+                email = "aaaaa@a.com";
 
                 UserService.login(email, password).then(
                     function (response) {

@@ -1,8 +1,12 @@
 package com.si.cinemao.service;
 
+import com.si.cinemao.exception.RegisteredUserException;
+import com.si.cinemao.exception.UserNotFoundException;
 import com.si.cinemao.pojo.Series;
 import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.repositories.SeriesRepository;
+import com.si.cinemao.repositories.UserRepository;
+import com.si.cinemao.rest.UserRest;
 import com.si.cinemao.service.factory.SeriesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -21,6 +25,11 @@ public class SeriesServiceImpl implements SeriesService {
     @Autowired
     private SeriesRepository seriesRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
+
     @Override
     public Collection<Series> getAllSeries() {
 
@@ -29,7 +38,33 @@ public class SeriesServiceImpl implements SeriesService {
 
     @Override
     public Series addSeries(SeriesForm serie) {
-        Series series = SeriesFactory.createSeries(serie);
-        return seriesRepository.save(series);
+
+        if(seriesRepository.findByUserIdAndImdbID(serie.getUserId(), serie.getImdbID()) == null){
+
+            Series series = SeriesFactory.createSeries(serie);
+            return seriesRepository.save(series);
+        }else{
+            throw new RegisteredUserException();
+        }
     }
+
+    @Override
+    public Collection<Series> getSeriesByUserId(Long id) {
+
+        if(userRepository.exists(id)){
+
+            return seriesRepository.findByUserId(id);
+        }else {
+            throw new UserNotFoundException();
+        }
+
+    }
+
+    @Override
+    public Series getSerieByUserIdAndImdbID(Long userId, String imdbID) {
+        Series series =  seriesRepository.findByUserIdAndImdbID(userId, imdbID);
+        return series;
+    }
+
+
 }

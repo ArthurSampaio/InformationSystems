@@ -47,23 +47,23 @@ angular.module('myApp.busca', ['ngRoute'])
             $scope.addToPerfil = function (media) {
 
                 UserService.addMediaToPerfil(media).then(
-                    function (data) {
-                        if (data.response) {
+                    function(response){
+                        if (response) {
                             const message = media.Title + ', was added with success in your perfil.';
                             createToast('success', message);
                         } else {
-                            const message = media.Title + ', already be part of your perfil.';
+                            const message = media.Title + ', already be part of your perfil';
                             createToast('danger', message);
                         }
-                    });
-
+                    }
+                )
 
             }
 
             $scope.addToWatchlist = function (media) {
                 UserService.addMediaToWatchlist(media).then(
                     function (data) {
-                        if (data.response) {
+                        if (data) {
                             const message = media.Title + ', was added with success in your watchlist.';
                             createToast('success', message);
                         } else {

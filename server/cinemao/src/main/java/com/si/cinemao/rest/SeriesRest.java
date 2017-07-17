@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.Collection;
 
 /**
@@ -35,12 +36,23 @@ public class SeriesRest {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public Series addSerieToUser(@RequestBody SeriesForm series){
+    @RequestMapping(method = RequestMethod.POST, value = "/add/{userId}")
+    public ResponseEntity<User> addSerieToUser(@RequestBody SeriesForm series, @PathVariable Long userId){
 
-       return seriesService.addSeries(series);
+        series.setUserId(userId);
+        Series serie = seriesService.addSeries(series);
+
+        return (serie != null) ? new ResponseEntity(serie, HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+    }
 
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<Collection<Series>> findSeriesByUserId (@PathVariable Long id){
+        Collection<Series> series = seriesService.getSeriesByUserId(id);
+
+        return new ResponseEntity(series, HttpStatus.OK);
     }
 
 

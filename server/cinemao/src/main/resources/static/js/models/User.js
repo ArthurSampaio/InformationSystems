@@ -1,6 +1,12 @@
 class User {
 
-    constructor(username,email, watch, perfil) {
+    constructor(id, username,email, watch, perfil) {
+
+        if(id === undefined){
+            this.id = ""
+        }else{
+            this.id = id; 
+        }
 
         if (watch === undefined) {
             this._watchlist = []
@@ -10,7 +16,7 @@ class User {
 
         if (perfil === undefined) {
             this._perfil = []
-        } else {
+        } else {    
             this._perfil = perfil;
         }
         if(username === undefined){

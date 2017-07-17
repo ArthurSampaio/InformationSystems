@@ -23,21 +23,25 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
         return $http.post("/user/login", JSON.stringify(user));
 
     }
-    
-    function _updateUser (user){
 
-        console.log(user);
-        return $http.post("/user/update", JSON.stringify(user));
+    function _addSeriesToUser(user, movie){
+
+        return $http.post("/series/add/" + user.id, JSON.stringify(movie));
 
     }
 
-    
+    function _seriesByUserID(userId){
+        return $http.get("/series/" + userId);
+    }
+
 
     return {
         searchByTitle : _searchByTitle, 
         getInfoByImdbID : _getInfoByImdbID, 
         makeLogin : _makeLogin, 
-        updateUser : _updateUser
+        addSeriesToUser: _addSeriesToUser, 
+        seriesByUserID : _seriesByUserID
+     
     }
 
 

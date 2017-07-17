@@ -14,6 +14,7 @@ class Media {
         this.awards = movie.Awards; 
         this.imdbVotes = movie.imdbVotes
         this.imdbID = movie.imdbID; 
+       
     
     
     }
