@@ -1,6 +1,8 @@
 angular.module('myApp').service('UserService', function ($q, $http, config, QueryService) {
 
     const USER_ACTUAL = "USER";
+    const PERFIL = "PERFIL";
+    const WATCHLIST = "WATCHLIST";
 
 
     function load() {
@@ -8,6 +10,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
             let user_cached = _getInternalUser();
             if (user_cached !== null) {
                 let auxUser = JSON.parse(user_cached);
+                console.log(auxUser);
                 this.user = new User(auxUser.id, auxUser._username, auxUser._email, auxUser._watchlist, auxUser._perfil);
 
             } else {
@@ -36,12 +39,12 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
-              
+
 
                 let movie = _createMovie(response.data);
-                movie.inList = "PERFIL";
+                movie.inList = PERFIL;
                 const result = user.addPerfil(movie);
-        
+
 
                 _saveInternalUser(user);
                 return QueryService.addSeriesToUser(user, movie).then(
@@ -61,8 +64,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 console.log(user);
 
                 let movie = _createMovie(response.data);
-                movie.inList = "WATCHLIST";
-                const result = user.addPerfil(movie);
+                movie.inList = WATCHLIST;
+                const result = user.addWatchlist(movie);
 
                 _saveInternalUser(user);
                 return QueryService.addSeriesToUser(user, movie).then(
@@ -164,18 +167,34 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 const data = response.data;
 
                 //TODO: colocar os valores no user atual. 
-                return QueryService.seriesByUserID(data.id).then(
-                    function (response) {
-                        const series = response.data;
-                        const user = new User(data.id, data.username, data.email, data.watchlist, series)
-
-                        _saveInternalUser(user);
-                        return data.username;
+                return _takeAttrUser(data);
 
                     }
                 )
+            
+        
+    }
+
+    function _takeAttrUser(data) {
+        return QueryService.seriesByUserID(data.id).then(
+            function (response) {
+                const series = response.data;
+
+                let perfil = series.filter((item) => {
+                    return item.inList == PERFIL;
+                })
+                let watchlist = series.filter((item) => {
+                    return item.inList == WATCHLIST;
+                })
+
+                const user = new User(data.id, data.username, data.email, watchlist, perfil)
+
+                _saveInternalUser(user);
+                return user;
+
             }
         )
+
     }
 
     function _createMovie(movie) {

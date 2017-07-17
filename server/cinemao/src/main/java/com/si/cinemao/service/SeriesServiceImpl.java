@@ -52,7 +52,6 @@ public class SeriesServiceImpl implements SeriesService {
     public Collection<Series> getSeriesByUserId(Long id) {
 
         if(userRepository.exists(id)){
-
             return seriesRepository.findByUserId(id);
         }else {
             throw new UserNotFoundException();
