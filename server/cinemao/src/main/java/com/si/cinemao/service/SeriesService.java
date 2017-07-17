@@ -16,6 +16,7 @@ public interface SeriesService {
 
     Collection<Series> getSeriesByUserId(Long id);
 
-    Series getSerieByUserIdAndImdbID (Long userId, String imdbID);
+    Series deleteSeries (Long id);
+
 
 }

@@ -168,11 +168,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
                 //TODO: colocar os valores no user atual. 
                 return _takeAttrUser(data);
-
-                    }
-                )
-            
-        
+            }
+        )
     }
 
     function _takeAttrUser(data) {

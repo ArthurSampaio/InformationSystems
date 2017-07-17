@@ -55,5 +55,13 @@ public class SeriesRest {
         return new ResponseEntity(series, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public ResponseEntity<Series> deleteSerieID (@PathVariable Long id){
+
+        Series serieDeleted = seriesService.deleteSeries(id);
+        return new ResponseEntity(serieDeleted, HttpStatus.OK);
+
+    }
+
 
 }

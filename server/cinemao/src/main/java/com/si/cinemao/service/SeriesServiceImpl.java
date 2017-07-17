@@ -60,9 +60,15 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public Series getSerieByUserIdAndImdbID(Long userId, String imdbID) {
-        Series series =  seriesRepository.findByUserIdAndImdbID(userId, imdbID);
-        return series;
+    public Series deleteSeries(Long id) {
+
+        if(seriesRepository.exists(id)) {
+            Series exist = seriesRepository.findOne(id);
+            seriesRepository.delete(id);
+            return exist;
+        }else{
+            throw new UserNotFoundException();
+        }
     }
 
 
