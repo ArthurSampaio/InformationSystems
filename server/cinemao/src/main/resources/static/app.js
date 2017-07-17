@@ -22,19 +22,19 @@ angular.module('myApp', [
 
   }])
 
-  .run(['$rootScope', '$location','UserService', function ($rootScope, $location, UserService) {
+  .run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
 
-   
 
-    $rootScope.$on("$routeChangeStart", function(event, next, current) {
-      if($rootScope.loggedInUser == null){
+
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+      if ($rootScope.loggedInUser == null) {
         $location.path("/login");
-      
+
       }
     })
 
     const INITIAL_PAGE = 1;
-    
+
 
     $rootScope.buscar = function (tag) {
 
@@ -45,11 +45,11 @@ angular.module('myApp', [
 
     $rootScope.logout = function () {
 
-      $rootScope.loggedInUser = null; 
+      $rootScope.loggedInUser = null;
       $location.path("/login");
-      UserService.cleanUserStorage(); 
+      // localStorage.clear();
 
-            
+
     }
 
   }]);

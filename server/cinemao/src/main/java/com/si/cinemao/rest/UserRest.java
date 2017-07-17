@@ -72,7 +72,7 @@ public class UserRest {
     }
     
 
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    @RequestMapping(method  = RequestMethod.POST, value = "/login")
     public ResponseEntity<User> makeLogin (@RequestBody UserForm user){
 
         User userChecked = userService.login(user);
@@ -89,4 +89,4 @@ public class UserRest {
     }
 
 
-}   
+}

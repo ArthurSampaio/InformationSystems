@@ -19,6 +19,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         } else {
             this.user = new User();
         }
+        console.log(this.user); 
         return this.user;
     };
 
@@ -154,18 +155,14 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 const data = response.data; 
                
                 const user =  new User(data.watchlist, data.series)
-                console.log(user);
-                _saveInternalUser(user);
+                 _saveInternalUser(user);
+                 console.log(user);
                 return data.username;                 
             }
         )
     }
 
-    function _cleanUserStorage() {
-
-        return localStorage.clear();
-
-    }
+ 
 
 
     return {
@@ -179,7 +176,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
         login : _login, 
-        cleanUserStorage, _cleanUserStorage
+        
 
     }
 
