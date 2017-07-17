@@ -1,6 +1,6 @@
 class User {
 
-    constructor(watch, perfil) {
+    constructor(username,email, watch, perfil) {
 
         if (watch === undefined) {
             this._watchlist = []
@@ -12,6 +12,16 @@ class User {
             this._perfil = []
         } else {
             this._perfil = perfil;
+        }
+        if(username === undefined){
+            this._username = "";
+        }else{
+            this._username = username; 
+        }
+        if(email === undefined){
+            this._email = "";
+        }else{
+            this._email = email; 
         }
 
 
@@ -92,6 +102,15 @@ class User {
     get perfil() {
         return [].concat(this._perfil);
     }
+
+    get username() {
+        return this._username; 
+    }
+
+    get email () { 
+        return this._email; 
+    }
+
 
     addCommentToSerie(index, comment){
         if(this._perfil[index].commentaries === undefined){

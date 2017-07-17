@@ -18,9 +18,16 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
 
     function _makeLogin (email, password){
         
-        let user = {"username":"", "password": password, "email":email}
+        let user = {"password": password, "email":email}
 
         return $http.post("/user/login", JSON.stringify(user));
+
+    }
+    
+    function _updateUser (user){
+
+        console.log(user);
+        return $http.post("/user/update", JSON.stringify(user));
 
     }
 
@@ -29,7 +36,8 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
     return {
         searchByTitle : _searchByTitle, 
         getInfoByImdbID : _getInfoByImdbID, 
-        makeLogin : _makeLogin
+        makeLogin : _makeLogin, 
+        updateUser : _updateUser
     }
 
 

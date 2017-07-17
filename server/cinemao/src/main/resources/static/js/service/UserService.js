@@ -10,7 +10,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
             let user_cached = _getInternalUser();
             if (user_cached !== null) {
                 let auxUser = JSON.parse(user_cached);
-                this.user = new User(auxUser._watchlist, auxUser._perfil);
+                this.user = new User(auxUser._username,auxUser._email, auxUser._watchlist, auxUser._perfil);
 
             } else {
                 this.user = new User();
@@ -19,7 +19,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         } else {
             this.user = new User();
         }
-        console.log(this.user); 
+     
         return this.user;
     };
 
@@ -38,8 +38,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
-                console.log(response.data);
-                const result = user.addPerfil(response.data);
+                const result = user.addPerfil(_createMovie(response.data));
                 return $q(function (resolve, reject) {
                     if (result) {
                         _saveInternalUser(user)
@@ -49,15 +48,13 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                     }
                 });
             })
-
     }
 
     function _addMediaToWatchlist(media) {
         return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
-                console.log(response.data);
-                const result = user.addWatchlist(response.data);
+                const result = user.addWatchlist(_createMovie(response.data));
                 return $q(function (resolve, reject) {
                     if (result) {
                         _saveInternalUser(user)
@@ -137,8 +134,22 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
     function _saveInternalUser(user) {
+        localStorage.setItem('USER', JSON.stringify(user));
 
-        return localStorage.setItem('USER', JSON.stringify(user));
+        return QueryService.updateUser(_makeUser(user)).then(
+            function(response){
+                //foda q n devia retornar o password. 
+                //Como dar um jeito simples nisto?
+
+            }
+        )
+
+    }
+
+    function _makeUser(user){
+
+        const out = {"username":user.username, "email": user.email, "watchlist":user.watchlist,"series": user.perfil}
+        return out; 
     }
 
     function _addMediaFromWatchlistToPerfil(media) {
@@ -152,17 +163,21 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
         return QueryService.makeLogin(email, password).then(
             function (response) {
-                const data = response.data; 
-               
-                const user =  new User(data.watchlist, data.series)
-                 _saveInternalUser(user);
-                 console.log(user);
-                return data.username;                 
+                const data = response.data;
+                //TODO: Quando for null tem que retornar uma promisse negada
+                const user = new User(data.username, data.email, data.watchlist, data.series)
+              
+                _saveInternalUser(user);
+                return data.username;
             }
         )
     }
 
- 
+    function _createMovie(movie){
+        return new Media(movie);
+    }
+
+
 
 
     return {
@@ -175,8 +190,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-        login : _login, 
-        
+        login: _login,
+
 
     }
 

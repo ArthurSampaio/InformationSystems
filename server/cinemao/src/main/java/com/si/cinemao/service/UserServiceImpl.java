@@ -4,6 +4,7 @@ import com.si.cinemao.exception.CinemaoRuntimeError;
 import com.si.cinemao.exception.RegisteredUserException;
 import com.si.cinemao.exception.UserNotFoundException;
 import com.si.cinemao.pojo.Series;
+import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.pojo.User;
 import com.si.cinemao.pojo.UserForm;
 import com.si.cinemao.repositories.UserRepository;
@@ -12,9 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by sampaio on 13/07/17.
@@ -51,20 +51,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOne(id);
     }
 
-    @Override
-    public Collection<Series> getSeriesInUserPerfil(Long id) {
-        User user = validUser(id);
-        return user.getSeries();
 
-    }
-
-    @Override
-    public Collection<Series> getSeriesInUserWatchlist(Long id) {
-
-        User user = validUser(id);
-        return user.getWatchlist();
-
-    }
 
     @Override
     public User login(UserForm user) {
@@ -80,16 +67,15 @@ public class UserServiceImpl implements UserService {
 
         if(userChecked != null){
 
-            userChecked.setSeries(user.getSeries());
-            userChecked.setWatchlist(user.getWatchlist());
-            userChecked.setUsername(user.getUsername());
 
+            userChecked.setUsername(user.getUsername());
 
            return userRepository.save(userChecked);
         }else{
             throw new UserNotFoundException();
         }
     }
+
 
     public boolean existUser(String email){
 

@@ -47,9 +47,8 @@ angular.module('myApp', [
 
       $rootScope.loggedInUser = null;
       $location.path("/login");
-      // localStorage.clear();
-
-
+      localStorage.clear();
+        
     }
 
   }]);

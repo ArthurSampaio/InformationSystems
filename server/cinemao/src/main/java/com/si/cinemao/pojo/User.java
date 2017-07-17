@@ -13,16 +13,11 @@ import java.util.Set;
  * Created by sampaio on 11/07/17.
  */
 @Entity
-@Table(name = "TABLE_USER")
+@Table(name = "USER_TABLE")
 public class User {
 
-    @OneToMany(mappedBy = "user")
-    private Set<Series> series = new HashSet();
-    @OneToMany(mappedBy = "user")
-    private Set<Series> watchlist = new HashSet();
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -40,26 +35,17 @@ public class User {
 
     User(){}
 
+
     public User(String username, String password, String email) {
-        this.series = new HashSet<>();
-        this.watchlist = new HashSet<>();
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public Set<Series> getSeries() {
-        return series;
-    }
-
-    public void setSeries(Set<Series> series) {
-        this.series = series;
-    }
 
     public Long getId() {
         return id;
     }
-
 
     public String getUsername() {
         return username;
@@ -85,13 +71,7 @@ public class User {
         this.email = email;
     }
 
-    public Set<Series> getWatchlist() {
-        return watchlist;
-    }
 
-    public void setWatchlist(Set<Series> watchlist) {
-        this.watchlist = watchlist;
-    }
 
 
     @Override

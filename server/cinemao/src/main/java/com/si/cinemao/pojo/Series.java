@@ -1,6 +1,7 @@
 package com.si.cinemao.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.*;
 
@@ -8,48 +9,23 @@ import javax.persistence.*;
  * Created by sampaio on 11/07/17.
  */
 @Entity
-@Table(name = "TABLE_SERIES")
+@Table(name = "SERIES_TABLE")
 public class Series {
 
-    @JsonIgnore
-    @ManyToOne
-    private User user;
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    Series(){}
+    @Column(name = "userId")
+    private Long userId;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "imdbID")
+    private String imdbID;
 
-    @Column(name = "poster")
-    private String poster;
-
-    @Column(name = "imdbRating")
-    private Double imdbRating;
-
-    @Column(name = "rated")
-    private Double rated;
-
-    @Column(name = "runtime")
-    private String runtime;
-
-    @Column(name = "genre")
-    private String genre;
-
-    @Column(name = "type")
-    private String type;
-
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Series(Long userId, String imdb){
+        this.userId = userId;
+        this.imdbID = imdb;
     }
 
     public Long getId() {
@@ -60,59 +36,22 @@ public class Series {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getImdbID() {
+        return imdbID;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
-    public Double getImdbRating() {
-        return imdbRating;
-    }
+    Series(){}
 
-    public void setImdbRating(Double imdbRating) {
-        this.imdbRating = imdbRating;
-    }
-
-    public Double getRated() {
-        return rated;
-    }
-
-    public void setRated(Double rated) {
-        this.rated = rated;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

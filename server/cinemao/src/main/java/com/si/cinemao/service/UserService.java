@@ -1,8 +1,10 @@
 package com.si.cinemao.service;
 
 import com.si.cinemao.pojo.Series;
+import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.pojo.User;
 import com.si.cinemao.pojo.UserForm;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
 
@@ -11,18 +13,16 @@ import java.util.Collection;
  */
 public interface UserService {
 
-    User createUser (UserForm userForm);
+    User createUser(UserForm userForm);
 
     Collection<User> getAllUsers();
 
-    User getUserByID (Long id);
-
-    Collection<Series> getSeriesInUserPerfil(Long id);
-
-    Collection<Series> getSeriesInUserWatchlist (Long id);
+    User getUserByID(Long id);
 
     User login(UserForm user);
 
     User updateUser(User user);
+
+
 
 }
