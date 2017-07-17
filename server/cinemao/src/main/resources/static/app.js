@@ -22,7 +22,7 @@ angular.module('myApp', [
 
   }])
 
-  .run(['$rootScope', '$location', function ($rootScope, $location) {
+  .run(['$rootScope', '$location','UserService', function ($rootScope, $location, UserService) {
 
    
 
@@ -47,6 +47,7 @@ angular.module('myApp', [
 
       $rootScope.loggedInUser = null; 
       $location.path("/login");
+      UserService.cleanUserStorage(); 
 
             
     }

@@ -151,14 +151,19 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
         return QueryService.makeLogin(email, password).then(
             function (response) {
-                let data = response.data; 
-                let user = {"_watchlist": data.watchlist, "_perfil": data.series};
+                const data = response.data; 
                
+                const user =  new User(data.watchlist, data.series)
+                console.log(user);
                 _saveInternalUser(user);
                 return data.username;                 
             }
         )
+    }
 
+    function _cleanUserStorage() {
+
+        return localStorage.clear();
 
     }
 
@@ -173,7 +178,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-        login : _login
+        login : _login, 
+        cleanUserStorage, _cleanUserStorage
 
     }
 
