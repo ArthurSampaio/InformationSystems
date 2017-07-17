@@ -58,6 +58,7 @@ angular.module('myApp.home', ['ngRoute'])
 
             $scope.getMediaToBeRemoved = function (movie) {
                 $scope.mediaTobeRemoved = angular.copy(movie);
+                console.log(movie);
             }
 
             $scope.removeMediaFromPerfil = function () {

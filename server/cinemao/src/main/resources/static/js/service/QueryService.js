@@ -34,13 +34,19 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
         return $http.get("/series/" + userId);
     }
 
+    function _deleteSeriesByID(serieID){
+        return $http.delete("/series/" + serieID);
+
+    }
+
 
     return {
         searchByTitle : _searchByTitle, 
         getInfoByImdbID : _getInfoByImdbID, 
         makeLogin : _makeLogin, 
         addSeriesToUser: _addSeriesToUser, 
-        seriesByUserID : _seriesByUserID
+        seriesByUserID : _seriesByUserID, 
+        deleteSeriesByID : _deleteSeriesByID
      
     }
 

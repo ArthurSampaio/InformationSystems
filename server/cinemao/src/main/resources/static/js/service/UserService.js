@@ -80,16 +80,27 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
     function _removeMediaFromPerfil(media) {
-        let user = load();
-        const result = user.removePerfil(angular.copy(media));
-        return $q(function (resolve, reject) {
-            if (result) {
-                _saveInternalUser(user)
-                resolve({ 'response': true });
-            } else {
-                resolve({ 'response': false });
+
+        return QueryService.deleteSeriesByID(media.id).then(
+            function (response) {
+                let user = load();
+
+                const result = user.removePerfil(angular.copy(media));
+
+                return $q(function (resolve, reject) {
+                    if (result) {
+                        _saveInternalUser(user)
+                        resolve({ 'response': true });
+                    } else {
+                        resolve({ 'response': false });
+                    }
+                });
+
             }
-        });
+
+
+
+        )
 
     }
 
