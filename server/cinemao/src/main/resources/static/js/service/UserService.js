@@ -10,7 +10,6 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
             let user_cached = _getInternalUser();
             if (user_cached !== null) {
                 let auxUser = JSON.parse(user_cached);
-                console.log(auxUser);
                 this.user = new User(auxUser.id, auxUser._username, auxUser._email, auxUser._watchlist, auxUser._perfil);
 
             } else {
@@ -40,15 +39,14 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
             function (response) {
                 let user = load();
 
-
                 let movie = _createMovie(response.data);
                 movie.inList = PERFIL;
-                const result = user.addPerfil(movie);
 
 
-                _saveInternalUser(user);
                 return QueryService.addSeriesToUser(user, movie).then(
                     function (response) {
+                        const result = user.addPerfil(response.data);
+                        _saveInternalUser(user);
                         return true;
                     }, function (error) {
                         return false;
@@ -61,15 +59,14 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
-                console.log(user);
-
+              
                 let movie = _createMovie(response.data);
                 movie.inList = WATCHLIST;
-                const result = user.addWatchlist(movie);
-
-                _saveInternalUser(user);
+               
                 return QueryService.addSeriesToUser(user, movie).then(
                     function (response) {
+                         const result = user.addWatchlist(response.data);
+                         _saveInternalUser(user);
                         return true;
                     }, function (error) {
                         return false;
@@ -95,11 +92,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                         resolve({ 'response': false });
                     }
                 });
-
             }
-
-
-
         )
 
     }
