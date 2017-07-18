@@ -209,6 +209,13 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         return out;
     }
 
+    function _registerAccount(user){
+
+        return QueryService.registerUser(user);
+        
+
+    }
+
 
 
 
@@ -224,6 +231,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
         login: _login,
+        registerAccount : _registerAccount,
 
 
     }

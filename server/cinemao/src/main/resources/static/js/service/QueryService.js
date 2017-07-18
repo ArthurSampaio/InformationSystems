@@ -39,6 +39,10 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
 
     }
 
+    function _registerUser(user){
+        return $http.post("/user/create", JSON.stringify(user));
+    }
+
 
     return {
         searchByTitle : _searchByTitle, 
@@ -46,7 +50,8 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
         makeLogin : _makeLogin, 
         addSeriesToUser: _addSeriesToUser, 
         seriesByUserID : _seriesByUserID, 
-        deleteSeriesByID : _deleteSeriesByID
+        deleteSeriesByID : _deleteSeriesByID, 
+        registerUser: _registerUser
      
     }
 

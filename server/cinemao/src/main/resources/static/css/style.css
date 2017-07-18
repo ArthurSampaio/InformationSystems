@@ -925,6 +925,10 @@ PANELS CONFIGURATIONS
 	text-align: left;
 }
 
+.form-group{
+    margin: 5px;
+}
+
 label {
 	font-weight: 400;
 }
@@ -932,7 +936,7 @@ label {
 .form-horizontal.style-form .form-group {
 	border-bottom: 1px solid #eff2f7;
 	padding-bottom: 15px;
-	margin-bottom: 15px;
+	margin: 15px;
 }
 
 .round-form {
