@@ -18,5 +18,7 @@ public interface SeriesService {
 
     Series deleteSeries (Long id);
 
+    Series updateSeries (Series serie);
+
 
 }

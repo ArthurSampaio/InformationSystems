@@ -35,38 +35,33 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     function _addMediaToPerfil(media) {
 
-        return QueryService.getInfoByImdbID(media.imdbID).then(
-            function (response) {
-                let user = load();
-
-                let movie = _createMovie(response.data);
-                movie.inList = PERFIL;
-
-
-                return QueryService.addSeriesToUser(user, movie).then(
-                    function (response) {
-                        const result = user.addPerfil(response.data);
-                        _saveInternalUser(user);
-                        return true;
-                    }, function (error) {
-                        return false;
-                    }
-                )
-            })
+        return _addMediaTo(media, PERFIL);
     }
 
     function _addMediaToWatchlist(media) {
+        return _addMediaTo(media, WATCHLIST);
+
+    }
+
+    function _addMediaTo(media, LIST) {
+
         return QueryService.getInfoByImdbID(media.imdbID).then(
             function (response) {
                 let user = load();
-              
+
                 let movie = _createMovie(response.data);
-                movie.inList = WATCHLIST;
-               
+                movie.inList = LIST;
+
                 return QueryService.addSeriesToUser(user, movie).then(
                     function (response) {
-                         const result = user.addWatchlist(response.data);
-                         _saveInternalUser(user);
+                        let result;
+                        if (LIST === WATCHLIST) {
+                            result = user.addWatchlist(response.data);
+                        }
+                        if (LIST === PERFIL) {
+                            result = user.addPerfil(response.data);
+                        }
+                        _saveInternalUser(user);
                         return true;
                     }, function (error) {
                         return false;
@@ -113,27 +108,24 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     function _addRatingToMedia(media, rating) {
 
-        let user = load();
-        let indexMedia = user.perfil.map((item) => {
-            return item.imdbID;
-        }).indexOf(media.imdbID);
-
-        if (indexMedia !== -1) {
-            user.addRatingToMedia(indexMedia, rating);
-        }
-        return $q(function (resolve) {
-            _saveInternalUser(user)
-            resolve({ 'response': true });
-        })
+        media.rated = rating;
+        QueryService.updateSeries(media).then(
+            function (response) {
+                let indexMedia = _isValidInPerfil(media)
+                if (indexMedia != -1) {
+                    let user = load();
+                    user.addRatingToMedia(indexMedia, rating);
+                    return response;
+                }
+            }
+        )
     }
 
     function _addCommentToSerie(serie, comment) {
-        let user = load();
-        let indexMedia = user.perfil.map((item) => {
-            return item.imdbID;
-        }).indexOf(serie.imdbID);
 
-        if (indexMedia !== -1) {
+
+        if (_isValidInPerfil(serie) != -1) {
+            let user = load();
             user.addCommentToSerie(indexMedia, comment);
         }
         return $q(function (resolve) {
@@ -142,6 +134,15 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         });
 
     }
+
+    function _isValidInPerfil(serie) {
+        let user = load();
+        let indexMedia = user.perfil.map((item) => {
+            return item.imdbID;
+        }).indexOf(serie.imdbID);
+        return indexMedia;
+    }
+
 
 
     function _getInternalUser() {
@@ -172,6 +173,9 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
                 //TODO: colocar os valores no user atual. 
                 return _takeAttrUser(data);
+            }, function(error){
+                console.log(error);
+                return error; 
             }
         )
     }
@@ -193,6 +197,8 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 _saveInternalUser(user);
                 return user;
 
+            }, function (error) {
+                return error.data;
             }
         )
 
@@ -203,20 +209,11 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
 
-    function _makeUser(user) {
-
-        const out = { "username": user.username, "email": user.email, "watchlist": user.watchlist, "series": user.perfil }
-        return out;
-    }
-
-    function _registerAccount(user){
+    function _registerAccount(user) {
 
         return QueryService.registerUser(user);
-        
 
     }
-
-
 
 
 
@@ -231,7 +228,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
         login: _login,
-        registerAccount : _registerAccount,
+        registerAccount: _registerAccount,
 
 
     }

@@ -1,11 +1,11 @@
 class User {
 
-    constructor(id, username,email, watch, perfil) {
+    constructor(id, username, email, watch, perfil) {
 
-        if(id === undefined){
+        if (id === undefined) {
             this.id = ""
-        }else{
-            this.id = id; 
+        } else {
+            this.id = id;
         }
 
         if (watch === undefined) {
@@ -16,18 +16,18 @@ class User {
 
         if (perfil === undefined) {
             this._perfil = []
-        } else {    
+        } else {
             this._perfil = perfil;
         }
-        if(username === undefined){
+        if (username === undefined) {
             this._username = "";
-        }else{
-            this._username = username; 
+        } else {
+            this._username = username;
         }
-        if(email === undefined){
+        if (email === undefined) {
             this._email = "";
-        }else{
-            this._email = email; 
+        } else {
+            this._email = email;
         }
 
 
@@ -68,7 +68,7 @@ class User {
     }
 
     removePerfil(movie) {
-        
+
         let out = false;
         const exist = this._perfil.map((item) => {
             return item.imdbID
@@ -82,7 +82,7 @@ class User {
         return out;
     }
 
-    removeWatchlist(movie){
+    removeWatchlist(movie) {
         let out = false;
         const exist = this._watchlist.map((item) => {
             return item.imdbID
@@ -97,29 +97,9 @@ class User {
 
     }
 
-    addRatingToMedia(index, rating){
-        return this._perfil[index].my_rating = rating;
-    }
 
-    get watchlist() {
-        return [].concat(this._watchlist);
-    }
-
-    get perfil() {
-        return [].concat(this._perfil);
-    }
-
-    get username() {
-        return this._username; 
-    }
-
-    get email () { 
-        return this._email; 
-    }
-
-
-    addCommentToSerie(index, comment){
-        if(this._perfil[index].commentaries === undefined){
+    addCommentToSerie(index, comment) {
+        if (this._perfil[index].commentaries === undefined) {
             this._perfil[index].commentaries = [];
         }
         console.log(comment);
@@ -134,6 +114,28 @@ class User {
         }).indexOf(media.imdbID);
 
     }
+
+
+    addRatingToMedia(index, rating) {
+        return this._perfil[index].rated = rating;
+    }
+
+    get watchlist() {
+        return [].concat(this._watchlist);
+    }
+
+    get perfil() {
+        return [].concat(this._perfil);
+    }
+
+    get username() {
+        return this._username;
+    }
+
+    get email() {
+        return this._email;
+    }
+
 
 
 }

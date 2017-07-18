@@ -2,7 +2,9 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
 
     const SEARCH = "s=";
     const PAGE = "&page="
-    const IMDB_ID = "i="
+    const IMDB_ID = "i=";
+    const SERIES = "/series/";
+    const USER = "/user/";
 
     
 
@@ -18,29 +20,34 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
 
     function _makeLogin (email, password){
         
-        let user = {"password": password, "email":email}
+        const user = {"password": password, "email":email}
 
-        return $http.post("/user/login", JSON.stringify(user));
+        return $http.post( USER + "login", JSON.stringify(user));
 
     }
 
     function _addSeriesToUser(user, movie){
 
-        return $http.post("/series/add/" + user.id, JSON.stringify(movie));
+        return $http.post(SERIES + "add/" + user.id, JSON.stringify(movie));
 
     }
 
     function _seriesByUserID(userId){
-        return $http.get("/series/" + userId);
+        return $http.get(SERIES + userId);
     }
 
     function _deleteSeriesByID(serieID){
-        return $http.delete("/series/" + serieID);
+        return $http.delete(SERIES + serieID);
 
     }
 
     function _registerUser(user){
-        return $http.post("/user/create", JSON.stringify(user));
+        console.log(user);
+        return $http.post(USER + "create", JSON.stringify(user));
+    }
+
+    function _updateSeries(series){
+        return $http.put(SERIES, JSON.stringify(series));
     }
 
 
@@ -51,7 +58,8 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
         addSeriesToUser: _addSeriesToUser, 
         seriesByUserID : _seriesByUserID, 
         deleteSeriesByID : _deleteSeriesByID, 
-        registerUser: _registerUser
+        registerUser: _registerUser, 
+        updateSeries : _updateSeries
      
     }
 

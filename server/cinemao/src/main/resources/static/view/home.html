@@ -51,6 +51,7 @@
                                     <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.imdbRating }}</i>/10
                                     <p>Votes: {{ mediaModal.imdbVotes }} </p>
                                     <button type="button" class="btn btn-round btn-theme02" data-toggle="collapse" data-target="#rating">Rate this</button>
+                                    <!--rate button-->
                                     <div id="rating" class="collapse">
                                         <form class="form-inline pull-right" role="form">
 
@@ -72,9 +73,9 @@
                                 <img src="{{mediaModal.poster}}">
                             </figure>
 
-                            <div ng-if="mediaModal.my_rating !== undefined" style="text-align:center">
+                            <div ng-if="mediaModal.rated !== null" style="text-align:center">
                                 My vote is:
-                                <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.my_rating }}</i>/10
+                                <i class="fa fa-star fa-2x" aria-hidden="true">{{ mediaModal.rated }}</i>/10
                             </div>
                         </div>
                         <div class='col-lg-7 col-md-7 col-sm-7 mb'>
@@ -85,7 +86,7 @@
                                 <h4>Plot</h4>
                                 <p> {{ mediaModal.plot}}</p>
                             </div>
-                            <div class="showback" ng-if="mediaModal.Type === 'series'">
+                            <div class="showback">
                                 <p>Add your commentaries about {{ mediaModal.title }}</p>
                                 <!--add comentario-->
                                 <form class="form">
@@ -97,9 +98,9 @@
                                             </tr>
                                         </thead>
                                         <tr ng-repeat="comment in mediaModal.commentaries">
-                                        <p>{{comment || JSON}}</p>
-                                        <th> {{ comment.episode }} </th>
-                                        <th> {{ comment.description }} </th>
+                                            <p>{{comment || JSON}}</p>
+                                            <th> {{ comment.episode }} </th>
+                                            <th> {{ comment.description }} </th>
                                         </tr>
                                     </table>
                                     <div class='col-lg-3 col-md-3 col-sm-3'>
@@ -110,8 +111,8 @@
 
                                     </div>
 
-                                        <button type="submit" ng-click="addComment(commentary)" ng-show="commentary.episode && commentary.description"
-                                         class="btn btn-theme02 btn-xs btn-block"  data-dismiss="modal" >Add commentary</button>
+                                    <button type="submit" ng-click="addComment(commentary)" ng-show="commentary.episode && commentary.description" class="btn btn-theme02 btn-xs btn-block"
+                                        data-dismiss="modal">Add commentary</button>
                                     <!--/showback -->
                                 </form>
                             </div>

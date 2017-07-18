@@ -1,12 +1,12 @@
 package com.si.cinemao.service;
 
 import com.si.cinemao.exception.RegisteredUserException;
+import com.si.cinemao.exception.SeriesNotFoundException;
 import com.si.cinemao.exception.UserNotFoundException;
 import com.si.cinemao.pojo.Series;
 import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.repositories.SeriesRepository;
 import com.si.cinemao.repositories.UserRepository;
-import com.si.cinemao.rest.UserRest;
 import com.si.cinemao.service.factory.SeriesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -69,6 +69,15 @@ public class SeriesServiceImpl implements SeriesService {
             return exist;
         }else{
             throw new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public Series updateSeries(Series serie) {
+        if(seriesRepository.exists(serie.getId())){
+            return seriesRepository.save(serie);
+        }else{
+            throw new SeriesNotFoundException();
         }
     }
 
