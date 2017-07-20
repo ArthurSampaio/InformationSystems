@@ -1,7 +1,6 @@
 package com.si.cinemao.rest;
 
 import com.si.cinemao.pojo.Series;
-import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.pojo.User;
 import com.si.cinemao.service.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- * Created by sampaio on 17/07/17.  
+ * Created by sampaio on 17/07/17.
  */
 @RestController
 @RequestMapping(value = "/series")
@@ -32,7 +31,7 @@ public class SeriesRest {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add/{userId}")
-    public ResponseEntity<User> addSerieToUser(@RequestBody SeriesForm series, @PathVariable Long userId){
+    public ResponseEntity<User> addSerieToUser(@RequestBody Series series, @PathVariable Long userId){
 
         series.setUserId(userId);
         Series serie = seriesService.addSeries(series);
@@ -40,8 +39,6 @@ public class SeriesRest {
         return (serie != null) ? new ResponseEntity(serie, HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
 
     }
-
-
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Collection<Series>> findSeriesByUserId (@PathVariable Long id){
@@ -66,10 +63,5 @@ public class SeriesRest {
         return new ResponseEntity(seriesUpdated, HttpStatus.OK);
 
     }
-
-
-
-
-
 
 }

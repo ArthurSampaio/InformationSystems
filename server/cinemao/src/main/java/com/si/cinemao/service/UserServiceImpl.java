@@ -1,10 +1,7 @@
 package com.si.cinemao.service;
 
-import com.si.cinemao.exception.CinemaoRuntimeError;
 import com.si.cinemao.exception.RegisteredUserException;
 import com.si.cinemao.exception.UserNotFoundException;
-import com.si.cinemao.pojo.Series;
-import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.pojo.User;
 import com.si.cinemao.pojo.UserForm;
 import com.si.cinemao.repositories.UserRepository;

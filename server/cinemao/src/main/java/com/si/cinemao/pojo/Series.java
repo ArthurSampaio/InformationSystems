@@ -25,9 +25,6 @@ public class Series implements Serializable {
     @Column(name = "imdbID")
     private String imdbID;
 
-
-
-
     private String title;
     private String poster;
     private String imdbRating;
@@ -40,6 +37,15 @@ public class Series implements Serializable {
     private String awards;
     private String type;
     private String inList;
+    private String lastComentary;
+
+    public String getLastComentary() {
+        return lastComentary;
+    }
+
+    public void setLastComentary(String lastComentary) {
+        this.lastComentary = lastComentary;
+    }
 
     public String getInList() {
         return inList;

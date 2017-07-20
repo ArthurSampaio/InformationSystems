@@ -4,10 +4,8 @@ import com.si.cinemao.exception.RegisteredUserException;
 import com.si.cinemao.exception.SeriesNotFoundException;
 import com.si.cinemao.exception.UserNotFoundException;
 import com.si.cinemao.pojo.Series;
-import com.si.cinemao.pojo.SeriesForm;
 import com.si.cinemao.repositories.SeriesRepository;
 import com.si.cinemao.repositories.UserRepository;
-import com.si.cinemao.service.factory.SeriesFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
@@ -37,12 +35,11 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public Series addSeries(SeriesForm serie) {
+    public Series addSeries(Series serie) {
 
         if(seriesRepository.findByUserIdAndImdbID(serie.getUserId(), serie.getImdbID()) == null){
 
-            Series series = SeriesFactory.createSeries(serie);
-            return seriesRepository.save(series);
+            return seriesRepository.save(serie);
         }else{
             throw new RegisteredUserException();
         }

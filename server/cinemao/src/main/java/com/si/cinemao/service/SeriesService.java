@@ -1,7 +1,6 @@
 package com.si.cinemao.service;
 
 import com.si.cinemao.pojo.Series;
-import com.si.cinemao.pojo.SeriesForm;
 
 import java.util.Collection;
 
@@ -12,7 +11,7 @@ public interface SeriesService {
 
     Collection<Series> getAllSeries();
 
-    Series addSeries (SeriesForm serie);
+    Series addSeries (Series serie);
 
     Collection<Series> getSeriesByUserId(Long id);
 
