@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Entity who manager the search mechanism 
+ */
 angular.module('myApp.busca', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
@@ -44,6 +47,9 @@ angular.module('myApp.busca', ['ngRoute'])
             })();
 
 
+            /**
+             * Add a specific serie to perfil
+             */
             $scope.addToPerfil = function (media) {
 
                 UserService.addMediaToPerfil(media).then(
@@ -60,6 +66,9 @@ angular.module('myApp.busca', ['ngRoute'])
 
             }
 
+            /**
+             * Add a sspecific to watchlist
+             */
             $scope.addToWatchlist = function (media) {
                 UserService.addMediaToWatchlist(media).then(
                     function (data) {
@@ -73,6 +82,9 @@ angular.module('myApp.busca', ['ngRoute'])
                     });
             }
 
+            /**
+             * Pick up the next page of the search
+             */
             $scope.next = function () {
 
                 const nextPage = Number(page) + NEXT;
@@ -83,6 +95,9 @@ angular.module('myApp.busca', ['ngRoute'])
 
             }
 
+            /**
+             * Pick up the previous page of the search
+             */
             $scope.previous = function () {
 
                 const previousPage = Number(page) - NEXT;

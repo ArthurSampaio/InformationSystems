@@ -1,5 +1,7 @@
 'use strict';
-
+/**
+ * Entity who manager the home page 
+ */
 angular.module('myApp.home', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
@@ -9,16 +11,19 @@ angular.module('myApp.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeController', ['$scope', 'UserService','$rootScope','$location',
-        function ($scope, UserService, $rootScope, $location) {
+    .controller('HomeController', ['$scope', 'UserService',
+        function ($scope, UserService) {
 
+            /**
+             * Load a set of series presents in perfil
+             */
             function _load() {
             
                 UserService.getListOfPerfil().then(
                     function (response) {
                         $scope.listOfPerfil = response;
                 })
-                 $rootScope.currentPage = $location.path();
+                
             };
 
             _load();
@@ -27,27 +32,19 @@ angular.module('myApp.home', ['ngRoute'])
             $scope.rateMedia = function(rating){
                 
                 const media = angular.copy($scope.mediaModal);
-                UserService.addRatingToMedia(media, rating).then(
-                    function(data){
-                        $scope.rating = null;
-                             _load();
-                      
-                    }
-                );
+                UserService.addRatingToMedia(media, rating);
+                _load(); 
             }
 
+            /**
+             * Add a commentarie to a single media
+             */
             $scope.addComment = function (commentary){
                 const media = angular.copy($scope.mediaModal);
-                UserService.addCommentToSerie(media, commentary).then(
-                    function(data){
-                        if(data.response){
-                            _load();
-                            $scope.commentary = {'episode': "", 'description':""};
-                            $scope.commentary = null;
-                            
-                        }
-                    }
-                )
+                              
+                UserService.addCommentToSerie(media, commentary)
+                $scope.commentary = null;
+                      
             }
             
 

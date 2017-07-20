@@ -1,3 +1,6 @@
+/**
+ * Represents a media entity
+ */
 class Media {
 
     constructor(movie){
@@ -14,6 +17,7 @@ class Media {
         this.awards = movie.Awards; 
         this.imdbVotes = movie.imdbVotes
         this.imdbID = movie.imdbID; 
+        this.lastCommentary = movie.lastCommentary; 
        
     
     

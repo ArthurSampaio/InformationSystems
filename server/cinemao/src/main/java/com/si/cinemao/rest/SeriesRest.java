@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
+ * Series rest controller
+ * THe main logic business of series
  * Created by sampaio on 17/07/17.
  */
 @RestController
@@ -21,8 +23,12 @@ public class SeriesRest {
     private SeriesService seriesService;
 
 
+    /**
+     * Return all the series in the system
+     * @return a set of Series
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Series>> getAllRegisterUsers() {
+    public ResponseEntity<Collection<Series>> getAllRegisteredSeries() {
 
         Collection<Series> users = seriesService.getAllSeries();
 
@@ -30,6 +36,12 @@ public class SeriesRest {
 
     }
 
+    /**
+     * Add a serie to specific user
+     * @param series to be added in user
+     * @param userId
+     * @return series recent add
+     */
     @RequestMapping(method = RequestMethod.POST, value = "/add/{userId}")
     public ResponseEntity<User> addSerieToUser(@RequestBody Series series, @PathVariable Long userId){
 
@@ -40,6 +52,11 @@ public class SeriesRest {
 
     }
 
+    /**
+     * Find a specific series by your id
+     * @param id id of a serie
+     * @return a serie with this respective id
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Collection<Series>> findSeriesByUserId (@PathVariable Long id){
         Collection<Series> series = seriesService.getSeriesByUserId(id);
@@ -47,6 +64,11 @@ public class SeriesRest {
         return new ResponseEntity(series, HttpStatus.OK);
     }
 
+    /**
+     * Delete a serie in the system
+     * @param id of serie
+     * @return
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<Series> deleteSerieID (@PathVariable Long id){
 
@@ -55,6 +77,11 @@ public class SeriesRest {
 
     }
 
+    /**
+     * Update some info of a serie
+     * @param serie
+     * @return updated series
+     */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Series> updateSeriesById (@RequestBody Series serie){
 

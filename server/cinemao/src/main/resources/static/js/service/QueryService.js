@@ -1,3 +1,6 @@
+/**
+ * Represents a entity who talk with the server. 
+ */
 angular.module('myApp').service('QueryService', function($q, $http, config){
 
     const SEARCH = "s=";
@@ -8,6 +11,11 @@ angular.module('myApp').service('QueryService', function($q, $http, config){
 
     
 
+    /**
+     * Get a series by your title
+     * @param {*String} title 
+     * @param {*String} page 
+     */
     function _searchByTitle(title, page){
 
         return $http.get(config.baseUrl + SEARCH + title + PAGE + page)

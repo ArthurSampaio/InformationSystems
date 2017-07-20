@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * The watchlist page controller. 
+ * It has Has almost all the responsibilities on the series in the watchlist
+ */
 angular.module('myApp.watchlist', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
@@ -13,6 +17,9 @@ angular.module('myApp.watchlist', ['ngRoute'])
     .controller('WatchlistController', ['$scope', 'UserService',
         function ($scope, UserService) {
 
+            /**
+             * Load a list of series in watchlist
+             */
             function _load() {
                 UserService.getListOfWatchlist().then(
                     function (response) {
@@ -27,15 +34,13 @@ angular.module('myApp.watchlist', ['ngRoute'])
                 $scope.mediaModal = angular.copy(movie);
             }
 
+            /**
+             * Add a series in perfil; 
+             */
             $scope.addToPerfil = function (){
-                console.log($scope.modalPerfil);
-                UserService.addMediaFromWatchlistToPerfil( $scope.modalPerfil).then(
-                    function(data){
-                        if(data.response){
-                            _load();
-                        }
-                    }
-                )
+        
+                UserService.addMediaFromWatchlistToPerfil( $scope.modalPerfil);
+                _load();
             }
 
             $scope.getInfoForPerfil = function(movie){

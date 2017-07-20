@@ -1,3 +1,7 @@
+
+/**
+ * Represent the main logica business. 
+ */
 angular.module('myApp').service('UserService', function ($q, $http, config, QueryService) {
 
     const USER_ACTUAL = "USER";
@@ -5,6 +9,9 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     const WATCHLIST = "WATCHLIST";
 
 
+    /**
+     * Cached a specific user. This helps in business logic
+     */
     function load() {
         if (typeof (Storage) !== "undefined") {
             let user_cached = _getInternalUser();
@@ -23,15 +30,47 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         return this.user;
     };
 
+    /**
+     * Get a list of series present in Perfil
+     */
     function _getListOfPerfil() {
-        let user = load();
-        return $q.when(user.perfil);
+        const user = load();
+
+        return QueryService.seriesByUserID(user.id).then(
+            function (response) {
+                const series = response.data;
+
+                let perfil = series.filter((item) => {
+                    return item.inList === PERFIL;
+                })
+                _saveInternalUser(user);
+
+                return perfil;
+            }
+
+        )
     }
 
+     /**
+     * Get a list of series present in Watchlist
+     */
     function _getListOfWatchlist() {
         let user = load();
-        return $q.when(user.watchlist);
+        return QueryService.seriesByUserID(user.id).then(
+            function (response) {
+                const series = response.data;
+
+                let perfil = series.filter((item) => {
+                    return item.inList === WATCHLIST;
+                })
+                _saveInternalUser(user);
+
+                return perfil;
+            }
+
+        )
     }
+
 
     function _addMediaToPerfil(media) {
 
@@ -39,10 +78,16 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     }
 
     function _addMediaToWatchlist(media) {
+        console.log(media);
         return _addMediaTo(media, WATCHLIST);
 
     }
 
+    /**
+     * Add a specif midia in collection LIST. List can be PERFIL or WATCHLIST.
+     * @param {*Array} media 
+     * @param {*string} LIST 
+     */
     function _addMediaTo(media, LIST) {
 
         return QueryService.getInfoByImdbID(media.imdbID).then(
@@ -71,6 +116,10 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
+    /**
+     * Remove a media from perfil;
+     * @param {*Media} media 
+     */
     function _removeMediaFromPerfil(media) {
 
         return QueryService.deleteSeriesByID(media.id).then(
@@ -92,20 +141,12 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
-    function _removeMediaFromWatchlist(media) {
-        let user = load();
-        const result = user.removeWatchlist(angular.copy(media));
-        return $q(function (resolve, reject) {
-            if (result) {
-                _saveInternalUser(user)
-                resolve({ 'response': true });
-            } else {
-                resolve({ 'response': false });
-            }
-        });
 
-    }
-
+    /**
+     * Add a rate in a serie or movie
+     * @param {*Media} media 
+     * @param {*String} rating 
+     */
     function _addRatingToMedia(media, rating) {
 
         media.rated = rating;
@@ -115,26 +156,44 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                 if (indexMedia != -1) {
                     let user = load();
                     user.addRatingToMedia(indexMedia, rating);
+                    _saveInternalUser(user);
+
                     return response;
                 }
             }
         )
     }
 
+    /**
+     * Add comments to a unique serie
+     * @param {Media} serie 
+     * @param {String} comment 
+     */
     function _addCommentToSerie(serie, comment) {
+
+        serie.lastComentary = angular.copy(comment);
 
 
         if (_isValidInPerfil(serie) != -1) {
             let user = load();
-            user.addCommentToSerie(indexMedia, comment);
-        }
-        return $q(function (resolve) {
+            user.addCommentToSerie(_isValidInPerfil(serie), comment);
             _saveInternalUser(user);
-            resolve({ 'response': true });
-        });
+        }
+       
+
+        QueryService.updateSeries(serie).then(
+            function (response) {       
+                    console.log(response.data);    
+                    return response;
+                }      
+        )
 
     }
 
+    /**
+     * Check if a media is valid in this perfil
+     * @param {*Media} serie 
+     */
     function _isValidInPerfil(serie) {
         let user = load();
         let indexMedia = user.perfil.map((item) => {
@@ -152,68 +211,33 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     function _saveInternalUser(user) {
 
-
         return localStorage.setItem('USER', JSON.stringify(user));
 
     }
 
+    /**
+     * Add Media from watchlist to perfil
+     * @param {Media} movie 
+     */
+    function _addMediaFromWatchlistToPerfil(movie) {
 
-    function _addMediaFromWatchlistToPerfil(media) {
+        const media = angular.copy(movie);
+        media.inList = PERFIL;
+        console.log(media.inList);
+        return QueryService.updateSeries(media).then(
 
-        _addMediaToPerfil(media);
-        return _removeMediaFromWatchlist(media);
-
-    }
-
-    function _login(email, password) {
-
-        return QueryService.makeLogin(email, password).then(
             function (response) {
-                const data = response.data;
-
-                //TODO: colocar os valores no user atual. 
-                return _takeAttrUser(data);
-            }, function(error){
-                console.log(error);
-                return error; 
-            }
-        )
-    }
-
-    function _takeAttrUser(data) {
-        return QueryService.seriesByUserID(data.id).then(
-            function (response) {
-                const series = response.data;
-
-                let perfil = series.filter((item) => {
-                    return item.inList == PERFIL;
-                })
-                let watchlist = series.filter((item) => {
-                    return item.inList == WATCHLIST;
-                })
-
-                const user = new User(data.id, data.username, data.email, watchlist, perfil)
-
-                _saveInternalUser(user);
-                return user;
-
-            }, function (error) {
-                return error.data;
-            }
-        )
+                return response.data;
+            })
 
     }
+
 
     function _createMovie(movie) {
         return new Media(movie);
     }
 
 
-    function _registerAccount(user) {
-
-        return QueryService.registerUser(user);
-
-    }
 
 
 
@@ -227,8 +251,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-        login: _login,
-        registerAccount: _registerAccount,
+       
 
 
     }

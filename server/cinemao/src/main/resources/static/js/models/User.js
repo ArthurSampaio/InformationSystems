@@ -1,3 +1,6 @@
+/**
+ * Represents the entity user;
+ */
 class User {
 
     constructor(id, username, email, watch, perfil) {
@@ -99,11 +102,12 @@ class User {
 
 
     addCommentToSerie(index, comment) {
-        if (this._perfil[index].commentaries === undefined) {
-            this._perfil[index].commentaries = [];
-        }
-        console.log(comment);
-        return this._perfil[index].commentaries.push(comment);
+       
+        
+        this._perfil[index].lastComentary = comment
+        console.log(this._perfil[index].lastComentary);
+
+        return this._perfil[index].lastComentary ; 
     }
 
 
@@ -117,6 +121,7 @@ class User {
 
 
     addRatingToMedia(index, rating) {
+        
         return this._perfil[index].rated = rating;
     }
 
