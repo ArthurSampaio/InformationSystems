@@ -1,3 +1,7 @@
+
+/**
+ * Entity to deal with authentication 
+ */
 angular.module('myApp').service('AuthService', function (QueryService) {
 
     function _login(email, password) {
