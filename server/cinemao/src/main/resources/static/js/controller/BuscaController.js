@@ -32,18 +32,27 @@ angular.module('myApp.busca', ['ngRoute'])
         function ($scope, $location, data, QueryService, title, page, UserService, ngToast) {
 
             const NEXT = 1;
+            const POSTER_NOT_FOUND = "http://www.makeupstudio.lu/html/images/poster/no_poster_available.jpg";
 
             (function () {
                 if (data.Response === "True") {
                     $scope.isValidTitle = true;
-                    $scope.moviesFinded = [].concat(data.Search);
+                    let seriesFinded = [].concat(data.Search);
+                    seriesFinded = seriesFinded.map((series) => {
+                        if (series.Poster === "N/A") {
+                            series.Poster = POSTER_NOT_FOUND; 
+                        }
+                        return series; 
+                    })
+
+                    $scope.moviesFinded = seriesFinded; 
 
                 } else {
                     $scope.isValidTitle = false;
                     $scope.moviesFinded = [];
                     $scope.tag = title;
                 }
-       
+
             })();
 
 
@@ -53,7 +62,7 @@ angular.module('myApp.busca', ['ngRoute'])
             $scope.addToPerfil = function (media) {
 
                 UserService.addMediaToPerfil(media).then(
-                    function(response){
+                    function (response) {
                         if (response) {
                             const message = media.Title + ', was added with success in your perfil.';
                             createToast('success', message);
