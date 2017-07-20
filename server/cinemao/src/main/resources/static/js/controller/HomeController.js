@@ -18,35 +18,40 @@ angular.module('myApp.home', ['ngRoute'])
              * Load a set of series presents in perfil
              */
             function _load() {
-            
+
                 UserService.getListOfPerfil().then(
                     function (response) {
-                        $scope.listOfPerfil = response;
-                })
-                
+                        $scope.listOfPerfil = response.reverse();
+                    })
+
             };
 
             _load();
-            
 
-            $scope.rateMedia = function(rating){
-                
+
+            $scope.rateMedia = function (rating) {
+
                 const media = angular.copy($scope.mediaModal);
-                UserService.addRatingToMedia(media, rating);
-                _load(); 
+                UserService.addRatingToMedia(media, rating).then(
+                    function (response) {
+                        console.log(response);
+                        $scope.rating = null;
+                        _load();
+                    })
             }
 
             /**
              * Add a commentarie to a single media
              */
-            $scope.addComment = function (commentary){
+            $scope.addComment = function (commentary) {
                 const media = angular.copy($scope.mediaModal);
-                              
-                UserService.addCommentToSerie(media, commentary)
-                $scope.commentary = null;
-                      
+                UserService.addCommentToSerie(media, commentary).then(
+                    function (response) {
+                        $scope.commentary = null;
+                        _load();
+                    });
             }
-            
+
 
             $scope.getInfoForModal = function (movie) {
                 $scope.mediaModal = angular.copy(movie);

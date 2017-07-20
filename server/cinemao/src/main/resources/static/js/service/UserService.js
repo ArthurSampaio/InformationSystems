@@ -51,9 +51,9 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         )
     }
 
-     /**
-     * Get a list of series present in Watchlist
-     */
+    /**
+    * Get a list of series present in Watchlist
+    */
     function _getListOfWatchlist() {
         let user = load();
         return QueryService.seriesByUserID(user.id).then(
@@ -163,7 +163,6 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
                     }
                 });
             })
-
     }
 
 
@@ -176,15 +175,22 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
     function _addRatingToMedia(media, rating) {
 
         media.rated = rating;
-        QueryService.updateSeries(media).then(
+        return QueryService.updateSeries(media).then(
             function (response) {
                 let indexMedia = _isValidInPerfil(media)
                 if (indexMedia != -1) {
                     let user = load();
-                    user.addRatingToMedia(indexMedia, rating);
+                    const result = user.addRatingToMedia(indexMedia, rating) !== null;
                     _saveInternalUser(user);
 
-                    return response;
+                    return $q(function (resolve, reject) {
+                        if (result) {
+                            _saveInternalUser(user)
+                            resolve({ 'response': true });
+                        } else {
+                            resolve({ 'response': false });
+                        }
+                    });
                 }
             }
         )
@@ -199,19 +205,20 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
         serie.lastComentary = angular.copy(comment);
 
+        return QueryService.updateSeries(serie).then(
+            function (response) {
+                console.log(response.data);
+                let user = load();
+                user.addCommentToSerie(_isValidInPerfil(serie), comment);
+                _saveInternalUser(user);
 
-        if (_isValidInPerfil(serie) != -1) {
-            let user = load();
-            user.addCommentToSerie(_isValidInPerfil(serie), comment);
-            _saveInternalUser(user);
-        }
-       
+                return $q(function (resolve, reject) {
 
-        QueryService.updateSeries(serie).then(
-            function (response) {       
-                    console.log(response.data);    
-                    return response;
-                }      
+                    _saveInternalUser(user)
+                    resolve({ 'response': true });
+
+                });
+            }
         )
 
     }
@@ -241,7 +248,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
-    
+
 
     function _createMovie(movie) {
         return new Media(movie);
@@ -261,7 +268,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
         addMediaFromWatchlistToPerfil: _addMediaFromWatchlistToPerfil,
         addRatingToMedia: _addRatingToMedia,
         addCommentToSerie: _addCommentToSerie,
-       
+
 
 
     }
