@@ -141,6 +141,32 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
+    /**
+     * Add Media from watchlist to perfil
+     * @param {Media} movie 
+     */
+    function _addMediaFromWatchlistToPerfil(movie) {
+
+        const media = angular.copy(movie);
+        media.inList = PERFIL;
+        console.log(media.inList);
+        return QueryService.updateSeries(media).then(
+            function (response) {
+                let user = load();
+                const result = user.removeWatchlist(angular.copy(media));
+                return $q(function (resolve, reject) {
+                    if (result) {
+                        _saveInternalUser(user)
+                        resolve({ 'response': true });
+                    } else {
+                        resolve({ 'response': false });
+                    }
+                });
+            })
+
+    }
+
+
 
     /**
      * Add a rate in a serie or movie
@@ -215,23 +241,7 @@ angular.module('myApp').service('UserService', function ($q, $http, config, Quer
 
     }
 
-    /**
-     * Add Media from watchlist to perfil
-     * @param {Media} movie 
-     */
-    function _addMediaFromWatchlistToPerfil(movie) {
-
-        const media = angular.copy(movie);
-        media.inList = PERFIL;
-        console.log(media.inList);
-        return QueryService.updateSeries(media).then(
-
-            function (response) {
-                return response.data;
-            })
-
-    }
-
+    
 
     function _createMovie(movie) {
         return new Media(movie);

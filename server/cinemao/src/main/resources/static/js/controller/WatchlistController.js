@@ -38,9 +38,15 @@ angular.module('myApp.watchlist', ['ngRoute'])
              * Add a series in perfil; 
              */
             $scope.addToPerfil = function (){
-        
-                UserService.addMediaFromWatchlistToPerfil( $scope.modalPerfil);
-                _load();
+                let media = angular.copy($scope.mediaModal);
+                UserService.addMediaFromWatchlistToPerfil( $scope.modalPerfil).then(
+                     function (data) {
+                        if (data.response) {
+                            _load();
+                        }
+                    });
+                
+                
             }
 
             $scope.getInfoForPerfil = function(movie){

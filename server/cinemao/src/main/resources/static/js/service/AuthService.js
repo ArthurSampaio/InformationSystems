@@ -4,6 +4,9 @@
  */
 angular.module('myApp').service('AuthService', function (QueryService) {
 
+    const PERFIL = "PERFIL";
+    const WATCHLIST = "WATCHLIST";
+
     function _login(email, password) {
 
         return QueryService.makeLogin(email, password).then(
